@@ -1,35 +1,35 @@
-// SAMPLE DATA (baad mein Google Sheet se connect hoga)
-const certificates = [
-  {
-    id: "PSY-2026-001",
-    name: "Ali Khan",
-    course: "Overthinking Webinar",
-    date: "10 Jan 2026",
-    pdf: "https://example.com/sample.pdf"
-  },
-  {
-    id: "PSY-2026-002",
-    name: "Sara Ahmed",
-    course: "Stress Management",
-    date: "15 Jan 2026",
-    pdf: "https://example.com/sample.pdf"
-  }
-];
-
-function verifyCertificate() {
+const SHEET_ID = "1of_mVqGw2igmqjVJdhQUR0wQ-_W7F7X58i6WJUv16Xk";
+const SHEET_NAME = "Untitled spreadsheet";
+const URL = `https://opensheet.elk.sh/${"1of_mVqGw2igmqjVJdhQUR0wQ-_W7F7X58i6WJUv16Xk" }/${"Untitled spreadsheet"}`;
+async function verifyCertificate() {
   const inputId = document.getElementById("certId").value.trim();
   const resultDiv = document.getElementById("result");
 
-  const cert = certificates.find(c => c.id === inputId);
+  if (!inputId) {
+    resultDiv.innerHTML = "<p style='color:red;'>Please enter Certificate ID</p>";
+    return;
+  }
 
-  if (cert) {
-    resultDiv.innerHTML = `
-      <p><strong>Name:</strong> ${cert.name}</p>
-      <p><strong>Course:</strong> ${cert.course}</p>
-      <p><strong>Date:</strong> ${cert.date}</p>
-      <p><a href="${cert.pdf}" target="_blank">View Certificate</a></p>
-    `;
-  } else {
-    resultDiv.innerHTML = "<p style='color:red;'>Certificate not found ❌</p>";
+  resultDiv.innerHTML = "Checking... ⏳";
+
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+
+    const cert = data.find(c => c.CertificateID === inputId);
+
+    if (cert) {
+      resultDiv.innerHTML = `
+        <p><strong>Name:</strong> ${cert.Name}</p>
+        <p><strong>Course:</strong> ${cert.Course}</p>
+        <p><strong>Date:</strong> ${cert.Date}</p>
+        <p><a href="${cert.PDF}" target="_blank">View Certificate</a></p>
+      `;
+    } else {
+      resultDiv.innerHTML = "<p style='color:red;'>Certificate not found ❌</p>";
+    }
+
+  } catch (error) {
+    resultDiv.innerHTML = "<p style='color:red;'>Error loading data</p>";
   }
 }
