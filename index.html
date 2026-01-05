@@ -2,30 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Psychology Certificate Verification</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- Google AdSense (baad mein yahan code paste hoga) -->
+  <title>Certificate Verification | Psychology Webinar</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<header>
-  <h1>Psychology Certificate Verification</h1>
-  <p>Verify your certificate using Certificate ID</p>
-</header>
+  <div class="container">
+    <h1>Certificate Verification Portal</h1>
+    <p>Please enter your Student ID to view your certificate</p>
 
-<main>
-  <div class="verify-box">
-    <input type="text" id="certId" placeholder="Enter Certificate ID (e.g. PSY-2026-001)">
-    <button onclick="verifyCertificate()">Verify</button>
+    <input type="text" id="studentId" placeholder="Enter Student ID">
+    <button onclick="checkCertificate()">View Certificate</button>
+
+    <p id="error"></p>
+
+    <div id="certificate" class="certificate">
+      <h2>Certificate of Participation</h2>
+      <p>This is to certify that</p>
+      <h3 id="studentName"></h3>
+      <p>has successfully attended the webinar on</p>
+      <h4>Overthinking & Mental Wellbeing</h4>
+      <p>Conducted by</p>
+      <h3>Major Muhammad Usama Durani</h3>
+      <span>Gold Medalist | Psychiatrist</span>
+    </div>
   </div>
 
-  <div id="result"></div>
-</main>
-
-<footer>
-  <p>© 2026 Psychology Verification System</p>
-</footer>
-
-<script src="script.js"></script>
+  <script src="scripts.js"></script>
 </body>
 </html>
