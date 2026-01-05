@@ -1,33 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Certificate Verification | Psychology Webinar</title>
+  <title>Certificate Verification</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <div class="container">
-    <h1>Certificate Verification Portal</h1>
-    <p>Please enter your Student ID to view your certificate</p>
+<div class="container">
+  <h1>Certificate Verification Portal</h1>
+  <p>Enter your Student ID</p>
 
-    <input type="text" id="studentId" placeholder="Enter Student ID">
-    <button onclick="checkCertificate()">View Certificate</button>
+  <input type="text" id="studentId" placeholder="e.g. PSY001">
+  <button onclick="verify()">Verify</button>
 
-    <p id="error"></p>
+  <p id="msg"></p>
 
-    <div id="certificate" class="certificate">
-      <h2>Certificate of Participation</h2>
-      <p>This is to certify that</p>
-      <h3 id="studentName"></h3>
-      <p>has successfully attended the webinar on</p>
-      <h4>Overthinking & Mental Wellbeing</h4>
-      <p>Conducted by</p>
-      <h3>Major Muhammad Usama Durani</h3>
-      <span>Gold Medalist | Psychiatrist</span>
-    </div>
+  <div id="certificate" class="certificate">
+    <h2>Certificate of Participation</h2>
+    <p>This certifies that</p>
+    <h3 id="name"></h3>
+    <p>has successfully attended</p>
+    <h4 id="webinar"></h4>
+    <p>Conducted by</p>
+    <strong>Major Muhammad Usama Durani</strong><br>
+    <span>Gold Medalist | Psychiatrist</span>
   </div>
+</div>
 
-  <script src="scripts.js"></script>
+<script src="scripts.js"></script>
 </body>
 </html>
