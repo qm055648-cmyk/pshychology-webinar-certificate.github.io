@@ -1,35 +1,30 @@
-const SHEET_ID = "1of_mVqGw2igmqjVJdhQUR0wQ-_W7F7X58i6WJUv16Xk";
-const SHEET_NAME = "Untitled spreadsheet";
-const URL = `https://opensheet.elk.sh/${"1of_mVqGw2igmqjVJdhQUR0wQ-_W7F7X58i6WJUv16Xk" }/${"Untitled spreadsheet"}`;
-async function verifyCertificate() {
-  const inputId = document.getElementById("certId").value.trim();
-  const resultDiv = document.getElementById("result");
+const sheetURL = "PASTE_YOUR_CSV_LINK_HERE";
 
-  if (!inputId) {
-    resultDiv.innerHTML = "<p style='color:red;'>Please enter Certificate ID</p>";
-    return;
-  }
+async function verify() {
+  const id = document.getElementById("studentId").value.trim();
+  const msg = document.getElementById("msg");
+  const cert = document.getElementById("certificate");
 
-  resultDiv.innerHTML = "Checking... ⏳";
+  const res = await fetch(sheetURL);
+  const text = await res.text();
+  const rows = text.split("\n").slice(1);
 
-  try {
-    const response = await fetch(URL);
-    const data = await response.json();
+  let found = false;
 
-    const cert = data.find(c => c.CertificateID === inputId);
-
-    if (cert) {
-      resultDiv.innerHTML = `
-        <p><strong>Name:</strong> ${cert.Name}</p>
-        <p><strong>Course:</strong> ${cert.Course}</p>
-        <p><strong>Date:</strong> ${cert.Date}</p>
-        <p><a href="${cert.PDF}" target="_blank">View Certificate</a></p>
-      `;
-    } else {
-      resultDiv.innerHTML = "<p style='color:red;'>Certificate not found ❌</p>";
+  rows.forEach(row => {
+    const cols = row.split(",");
+    if (cols[0] === id) {
+      document.getElementById("name").innerText = cols[1];
+      document.getElementById("webinar").innerText = cols[2];
+      cert.style.display = "block";
+      msg.innerText = "";
+      found = true;
     }
+  });
 
-  } catch (error) {
-    resultDiv.innerHTML = "<p style='color:red;'>Error loading data</p>";
+  if (!found) {
+    cert.style.display = "none";
+    msg.innerText = "❌ Invalid Student ID";
+    msg.style.color = "red";
   }
 }
