@@ -2,53 +2,39 @@ async function verify() {
     const idInput = document.getElementById("studentId").value.trim().toLowerCase();
     const msg = document.getElementById("msg");
     const cert = document.getElementById("certificate");
-    const nameField = document.getElementById("name");
-    const webinarField = document.getElementById("webinar_title");
-    const dateField = document.getElementById("certDate");
-
-    // Aapka Published CSV Link
+    
+    // Aapka CSV Link
     const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRjnVzX1JxAGMxClvi4MVQJwmyE3bx6djlk8qvZ8NSN2hKe3Qz7AGblXt_tZHQnYRRxmWDrFuY55ZRN/pub?gid=0&single=true&output=csv';
 
-    msg.innerHTML = "🔍 Checking Database...";
-    msg.style.color = "blue";
+    msg.innerText = "Searching...";
     cert.style.display = "none";
 
     try {
-        const response = await fetch(sheetURL + '&cachebust=' + new Date().getTime());
-        const csvText = await response.text();
-        
-        // CSV parsing logic for different devices
-        const rows = csvText.split(/\r?\n/);
-        let found = false;
+        const response = await fetch(sheetURL + "&cache=" + Math.random());
+        const data = await response.text();
+        const rows = data.split("\n");
 
-        for (let i = 0; i < rows.length; i++) {
-            // Split by comma but handle potential quotes
-            let cols = rows[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-            
-            if (cols.length > 0) {
-                let sheetID = cols[0].replace(/["']/g, "").trim().toLowerCase();
-                
-                if (sheetID === idInput) {
-                    nameField.innerText = cols[1] ? cols[1].replace(/["']/g, "").trim() : "";
-                    webinarField.innerText = cols[2] ? cols[2].replace(/["']/g, "").trim() : "";
-                    dateField.innerText = cols[3] ? cols[3].replace(/["']/g, "").trim() : "";
-                    found = true;
-                    break;
-                }
+        let found = false;
+        for (let i = 1; i < rows.length; i++) {
+            const cols = rows[i].split(",");
+            if (cols[0] && cols[0].trim().toLowerCase() === idInput) {
+                document.getElementById("name").innerText = cols[1].trim();
+                document.getElementById("webinar_title").innerText = cols[2].trim();
+                document.getElementById("certDate").innerText = cols[3].trim();
+                found = true;
+                break;
             }
         }
 
         if (found) {
-            msg.innerHTML = "✅ Record Found Successfully!";
+            msg.innerText = "✅ Record Found!";
             msg.style.color = "green";
             cert.style.display = "block";
         } else {
-            msg.innerHTML = "❌ ID Not Found: " + idInput;
+            msg.innerText = "❌ ID Not Found. Please check the spelling.";
             msg.style.color = "red";
         }
-
-    } catch (error) {
-        msg.innerHTML = "⚠️ Connection Error. Please refresh and try again.";
-        msg.style.color = "orange";
+    } catch (e) {
+        msg.innerText = "⚠️ Connection Error. Refresh the page.";
     }
 }
