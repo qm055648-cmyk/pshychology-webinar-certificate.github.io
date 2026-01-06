@@ -1,27 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certificate Verification</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Certificate Verification Portal</h1>
-        <div class="search-box">
-            <input type="text" id="studentId" placeholder="Enter ID (e.g. psy-2026-001l)">
-            <button onclick="verify()">Verify</button>
-        </div>
-        <p id="msg"></p>
-        <div id="certificate" class="certificate" style="display: none; border: 2px solid #333; padding: 20px; margin-top: 20px; text-align: center;">
-            <h2>Certificate of Participation</h2>
-            <p>This certifies that</p>
-            <h3 id="name"></h3>
-            <p>has successfully attended the webinar.</p>
-            <h4>Psychology Webinar 2026</h4>
+<div id="certificate" class="certificate" style="display: none;">
+    <div class="certificate-content">
+        <h1 class="cert-title">CERTIFICATE</h1>
+        <p class="cert-for">This certifies that</p>
+        <h3 id="name" class="student-name"></h3>
+        <p class="cert-text">has successfully completed the webinar on</p>
+        
+        <h2 id="webinar_title" class="webinar-title"></h2> 
+        
+        <p class="cert-text">conducted by</p>
+        <p class="instructor-name"><strong>Major Muhammad Usama Durani</strong></p>
+        <p class="instructor-details">Gold Medalist | Psychiatrist</p>
+
+        <div class="signatures-date">
+            <div class="signature-block">
+                <hr class="signature-line">
+                <p>Major Usama Durani</p>
+                <p>Instructor</p>
+            </div>
+            <div class="date-block">
+                <hr class="signature-line">
+                <p>Date: <span id="certDate"></span></p> 
+            </div>
         </div>
     </div>
-    <script src="script.js"></script>
-</body>
-</html>
+</div>
