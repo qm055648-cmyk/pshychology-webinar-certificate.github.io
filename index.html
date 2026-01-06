@@ -1,66 +1,51 @@
-<script>
-async function verify() {
-    const idInput = document.getElementById("studentId").value.trim().toLowerCase();
-    const msg = document.getElementById("msg");
-    const cert = document.getElementById("certificate");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psychology Training Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main-header">
+        <h1>Psychology Training Institute</h1>
+        <p>Verification & Excellence Portal</p>
+    </div>
 
-    const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ27SgNp1eufIFm41V_E8lXFh6_Nffz2-YLdNM2hOBmEg6Rd9SpOlyYvUUJzYNjh1k1Y5ICWSvKxy3E/pub?output=csv";
+    <div class="container">
+        <div class="search-section">
+            <h2>Search Certificate</h2>
+            <div class="input-box">
+                <input type="text" id="studentId" placeholder="ID (e.g. psy-2026-001)">
+                <button onclick="verify()">Verify Now</button>
+            </div>
+            <p id="msg"></p>
+        </div>
 
-    if (!idInput) {
-        msg.innerText = "⚠️ Please enter your Student ID";
-        msg.style.color = "orange";
-        cert.style.display = "none";
-        return;
-    }
-
-    msg.innerText = "🔍 Verifying certificate...";
-    msg.style.color = "blue";
-    cert.style.display = "none";
-
-    try {
-        const res = await fetch(sheetURL + "&cache=" + Math.random());
-        const csv = await res.text();
-
-        const rows = csv.split(/\r?\n/);
-        let recordFound = false;
-
-        for (let i = 1; i < rows.length; i++) {
-            if (!rows[i]) continue;
-
-            // Proper CSV parsing (comma safe)
-            const cols = rows[i].match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
-            if (!cols || cols.length < 4) continue;
-
-            const sheetId = cols[0].replace(/"/g, "").trim().toLowerCase();
-
-            if (sheetId === idInput) {
-                document.getElementById("name").innerText =
-                    cols[1].replace(/"/g, "").trim();
-
-                document.getElementById("webinar_title").innerText =
-                    cols[2].replace(/"/g, "").trim();
-
-                document.getElementById("certDate").innerText =
-                    cols[3].replace(/"/g, "").trim();
-
-                recordFound = true;
-                break;
-            }
-        }
-
-        if (recordFound) {
-            msg.innerText = "✅ Certificate Verified Successfully";
-            msg.style.color = "green";
-            cert.style.display = "block";
-        } else {
-            msg.innerText = "❌ Invalid ID or Record Not Found";
-            msg.style.color = "red";
-        }
-
-    } catch (error) {
-        msg.innerText = "⚠️ Server error. Please try again later.";
-        msg.style.color = "orange";
-        console.error(error);
-    }
-}
-</script>
+        <div id="certificate" class="certificate-frame" style="display: none;">
+            <div class="inner-border">
+                <div class="cert-body">
+                    <span class="cert-label">CERTIFICATE OF PARTICIPATION</span>
+                    <p class="intro">This is to officially certify that</p>
+                    <h1 id="name"></h1>
+                    <p class="intro">has successfully participated in the webinar</p>
+                    <h2 id="webinar_title"></h2>
+                    <div class="cert-footer">
+                        <div class="sign-part">
+                            <p class="sign-name">Major Muhammad Usama Durani</p>
+                            <p class="role">Instructor | Psychiatrist</p>
+                        </div>
+                        <div class="date-part">
+                            <p id="certDate"></p>
+                            <p class="role">Date of Issue</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="print-btn" onclick="window.print()">Download / Print</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
