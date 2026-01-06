@@ -1,51 +1,36 @@
-async function verify() {
-    let idInput = document.getElementById("studentId").value.trim().toLowerCase();
-    const msg = document.getElementById("msg");
-    const cert = document.getElementById("certificate");
-    const nameField = document.getElementById("name");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Verification Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-    // Confusion khatam karne ke liye: agar koi '1' likhay toh usay 'l' samajhna
-    idInput = idInput.replace(/1/g, 'l');
+    <div class="container">
+        <h1>Certificate Verification Portal</h1>
+        <p>Enter your Student ID to verify and view your certificate.</p>
+        
+        <div class="search-box">
+            <input type="text" id="studentId" placeholder="e.g. psy-2026-001l">
+            <button onclick="verify()">Verify</button>
+        </div>
 
-    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRjnVzX1JxAGMxClvi4MVQJwmyE3bx6djlk8qvZ8NSN2hKe3Qz7AGblXt_tZHQnYRRxmWDrFuY55ZRN/pub?gid=0&single=true&output=csv';
+        <p id="msg"></p>
 
-    if (idInput === "") {
-        msg.innerHTML = "Please enter a Student ID.";
-        msg.style.color = "orange";
-        return;
-    }
+        <div id="certificate" class="certificate" style="display: none;">
+            <h2>Certificate of Participation</h2>
+            <p>This certifies that</p>
+            <h3 id="name"></h3>
+            <p>has successfully attended</p>
+            <h4 id="webinar">Psychology Webinar 2026</h4>
+            <p>Conducted by</p>
+            <strong>Major Muhammad Usama Durani</strong><br>
+            <span>Gold Medalist | Psychiatrist</span>
+        </div>
+    </div>
 
-    msg.innerHTML = "Verifying... Please wait.";
-    msg.style.color = "blue";
-    cert.style.display = "none";
-
-    try {
-        const response = await fetch(sheetURL);
-        const csvData = await response.text();
-        const rows = csvData.split('\n').map(row => row.split(','));
-
-        let found = false;
-        for (let i = 1; i < rows.length; i++) {
-            // Sheet wali ID ko bhi clean karna
-            let sheetID = rows[i][0] ? rows[i][0].trim().toLowerCase().replace(/1/g, 'l') : "";
-            let studentName = rows[i][1] ? rows[i][1].trim() : "";
-
-            if (sheetID === idInput) {
-                nameField.innerHTML = studentName; 
-                found = true;
-                break;
-            }
-        }
-
-        if (found) {
-            msg.innerHTML = "✅ Certificate Verified!";
-            msg.style.color = "green";
-            cert.style.display = "block";
-        } else {
-            msg.innerHTML = "❌ Record not found. Please check your ID.";
-            msg.style.color = "red";
-        }
-    } catch (error) {
-        msg.innerHTML = "⚠️ Error connecting to sheet.";
-    }
-}
+    <script src="script.js"></script>
+</body>
+</html>
