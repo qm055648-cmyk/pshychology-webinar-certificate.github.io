@@ -3,44 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verification Portal</title>
+    <title>Certificate Verification Portal</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Certificate Portal</h1>
-        <p>Enter your ID to get your certificate</p>
-        
+        <h1>Verify Your Certificate</h1>
         <div class="search-box">
-            <input type="text" id="studentId" placeholder="e.g. psy-2026-001">
+            <input type="text" id="studentId" placeholder="Enter ID (e.g., psy-2026-001)">
             <button onclick="verify()">Verify Now</button>
         </div>
-        
         <p id="msg"></p>
 
-        <div id="certificate" class="certificate" style="display: none;">
-            <div class="certificate-content">
-                <h1 class="cert-title">CERTIFICATE</h1>
-                <p class="cert-for">OF PARTICIPATION</p>
-                <p class="cert-text">This is to certify that</p>
-                <h3 id="name" class="student-name"></h3>
-                <p class="cert-text">successfully attended the webinar on</p>
-                <h2 id="webinar_title" class="webinar-title"></h2>
-                
-                <div class="instructor-info">
-                    <p class="instructor-name"><strong>Major Muhammad Usama Durani</strong></p>
-                    <p class="instructor-details">Gold Medalist | Psychiatrist</p>
+        <div id="certificate" class="certificate-card" style="display: none;">
+            <div class="cert-header">CERTIFICATE OF PARTICIPATION</div>
+            <p>This is to certify that</p>
+            <h2 id="name"></h2>
+            <p>successfully completed the webinar on</p>
+            <h3 id="webinar_title"></h3>
+            <div class="cert-footer">
+                <div class="sign-area">
+                    <p class="signature">Major Muhammad Usama Durani</p>
+                    <p class="role">Instructor | Psychiatrist</p>
                 </div>
-
-                <div class="signatures-date">
-                    <div class="signature-block">
-                        <hr class="line">
-                        <p>Major Usama Durani</p>
-                    </div>
-                    <div class="date-block">
-                        <hr class="line">
-                        <p id="certDate"></p>
-                    </div>
+                <div class="date-area">
+                    <p id="certDate"></p>
+                    <p class="role">Date</p>
                 </div>
             </div>
         </div>
