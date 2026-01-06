@@ -6,45 +6,48 @@ async function verify() {
     const webinarField = document.getElementById("webinar_title");
     const dateField = document.getElementById("certDate");
 
-    // Naya Link + Cache Buster (taake purana data show na ho)
-    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRjnVzX1JxAGMxClvi4MVQJwmyE3bx6djlk8qvZ8NSN2hKe3Qz7AGblXt_tZHQnYRRxmWDrFuY55ZRN/pub?gid=0&single=true&output=csv&t=' + new Date().getTime();
+    // Aapki image se liya gaya exact link
+    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRjnVzX1JxAGMxClvi4MVQJwmyE3bx6djlk8qvZ8NSN2hKe3Qz7AGblXt_tZHQnYRRxmWDrFuY55ZRN/pub?gid=0&single=true&output=csv';
 
-    msg.innerHTML = "🔍 Checking our records...";
+    msg.innerHTML = "Checking Record...";
     msg.style.color = "blue";
     cert.style.display = "none";
 
     try {
+        // Fetching data from Google Sheets
         const response = await fetch(sheetURL);
-        if (!response.ok) throw new Error('Network response was not ok');
+        const data = await response.text();
         
-        const csvData = await response.text();
-        const rows = csvData.split('\n').map(row => row.split(','));
-
+        // CSV data ko lines mein split karna
+        const rows = data.split('\n');
         let found = false;
-        // Hum loop 0 se start kar rahe hain taake agar heading na ho toh bhi mil jaye
-        for (let i = 0; i < rows.length; i++) {
-            let sheetID = rows[i][0] ? rows[i][0].trim().toLowerCase() : "";
-            
+
+        for (let i = 1; i < rows.length; i++) {
+            // Har line ko columns (comma) mein split karna
+            let cols = rows[i].split(',');
+            let sheetID = cols[0] ? cols[0].trim().toLowerCase() : "";
+
             if (sheetID === idInput) {
-                nameField.innerHTML = rows[i][1] ? rows[i][1].trim() : "N/A";
-                webinarField.innerHTML = rows[i][2] ? rows[i][2].trim() : "N/A";
-                dateField.innerHTML = rows[i][3] ? rows[i][3].trim() : "N/A";
-                
+                nameField.innerText = cols[1] ? cols[1].trim() : "";
+                webinarField.innerText = cols[2] ? cols[2].trim() : "";
+                dateField.innerText = cols[3] ? cols[3].trim() : "";
                 found = true;
                 break;
             }
         }
 
         if (found) {
-            msg.innerHTML = "✅ Certificate Found!";
+            msg.innerHTML = "✅ Certificate Verified!";
             msg.style.color = "green";
             cert.style.display = "block";
         } else {
-            msg.innerHTML = "❌ ID Not Found. Try: " + idInput;
+            msg.innerHTML = "❌ ID Not Found. Please check: " + idInput;
             msg.style.color = "red";
         }
+
     } catch (error) {
-        msg.innerHTML = "⚠️ Error: Could not connect to the database.";
-        console.error(error);
+        msg.innerHTML = "⚠️ Database Connection Error. Try refreshing the page.";
+        msg.style.color = "orange";
+        console.error("Fetch error:", error);
     }
 }
