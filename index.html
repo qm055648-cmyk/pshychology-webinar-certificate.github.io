@@ -3,34 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certificate Verification Portal</title>
+    <title>Certificate Verification</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="container">
         <h1>Certificate Verification Portal</h1>
-        <p>Enter your Student ID to verify and view your certificate.</p>
-        
         <div class="search-box">
-            <input type="text" id="studentId" placeholder="e.g. psy-2026-001l">
+            <input type="text" id="studentId" placeholder="Enter ID (e.g. psy-2026-001l)">
             <button onclick="verify()">Verify</button>
         </div>
-
         <p id="msg"></p>
-
-        <div id="certificate" class="certificate" style="display: none;">
+        <div id="certificate" class="certificate" style="display: none; border: 2px solid #333; padding: 20px; margin-top: 20px; text-align: center;">
             <h2>Certificate of Participation</h2>
             <p>This certifies that</p>
             <h3 id="name"></h3>
-            <p>has successfully attended</p>
-            <h4 id="webinar">Psychology Webinar 2026</h4>
-            <p>Conducted by</p>
-            <strong>Major Muhammad Usama Durani</strong><br>
-            <span>Gold Medalist | Psychiatrist</span>
+            <p>has successfully attended the webinar.</p>
+            <h4>Psychology Webinar 2026</h4>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
