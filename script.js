@@ -1,4 +1,4 @@
-const sheetURL = "PASTE_YOUR_CSV_LINK_HERE";
+const sheetURL = "1of_mVqGw2igmqjVJdhQUR0wQ-_W7F7X58i6WJUv16Xk";
 
 async function verify() {
   const id = document.getElementById("studentId").value.trim();
