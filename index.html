@@ -1,26 +1,25 @@
-<div id="certificate" class="certificate" style="display: none;">
-    <div class="certificate-content">
-        <h1 class="cert-title">CERTIFICATE</h1>
-        <p class="cert-for">This certifies that</p>
-        <h3 id="name" class="student-name"></h3>
-        <p class="cert-text">has successfully completed the webinar on</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container" style="text-align: center; margin-top: 50px;">
+        <h1>Certificate Portal</h1>
+        <input type="text" id="studentId" placeholder="Enter ID here">
+        <button onclick="verify()">Verify</button>
+        <p id="msg"></p>
         
-        <h2 id="webinar_title" class="webinar-title"></h2> 
-        
-        <p class="cert-text">conducted by</p>
-        <p class="instructor-name"><strong>Major Muhammad Usama Durani</strong></p>
-        <p class="instructor-details">Gold Medalist | Psychiatrist</p>
-
-        <div class="signatures-date">
-            <div class="signature-block">
-                <hr class="signature-line">
-                <p>Major Usama Durani</p>
-                <p>Instructor</p>
-            </div>
-            <div class="date-block">
-                <hr class="signature-line">
-                <p>Date: <span id="certDate"></span></p> 
-            </div>
+        <div id="certificate" style="display: none; border: 5px solid #3498db; padding: 40px; margin-top: 20px;">
+            <h1 id="name"></h1>
+            <h2 id="webinar_title"></h2>
+            <p id="certDate"></p>
+            <p>Major Muhammad Usama Durani</p>
         </div>
     </div>
-</div>
+    <script src="script.js"></script>
+</body>
+</html>
