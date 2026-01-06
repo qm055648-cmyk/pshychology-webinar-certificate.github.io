@@ -3,61 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Certificate Portal</title>
+    <title>Psychology Training Portal</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <div class="portal-header">
+    <div class="main-header">
         <h1>Psychology Training Institute</h1>
-        <p>Official Verification & Certification Portal</p>
+        <p>Verification & Excellence Portal</p>
     </div>
 
     <div class="container">
-        <div class="search-box">
-            <h3>Verify Your Achievement</h3>
-            <p>Please enter your unique Certificate ID to view and verify your details.</p>
-            <div class="input-group">
-                <input type="text" id="studentId" placeholder="e.g. psy-2026-001">
+        <div class="search-section">
+            <h2>Search Certificate</h2>
+            <div class="input-box">
+                <input type="text" id="studentId" placeholder="ID (e.g. psy-2026-001)">
                 <button onclick="verify()">Verify Now</button>
             </div>
+            <p id="msg"></p>
         </div>
 
-        <p id="msg"></p>
-
-        <div id="certificate" class="certificate-card" style="display: none;">
-            <div class="cert-border">
-                <div class="cert-content">
-                    <div class="badge-icon">🏆</div>
-                    <div class="cert-title">CERTIFICATE</div>
-                    <div class="cert-subtitle">OF COMPLETION</div>
-                    
-                    <p class="cert-text">This is to certify that</p>
-                    <h2 id="name"></h2>
-                    <p class="cert-text">has successfully completed the webinar on</p>
-                    <h3 id="webinar_title"></h3>
-                    
+        <div id="certificate" class="certificate-frame" style="display: none;">
+            <div class="inner-border">
+                <div class="cert-body">
+                    <span class="cert-label">CERTIFICATE OF PARTICIPATION</span>
+                    <p class="intro">This is to officially certify that</p>
+                    <h1 id="name"></h1>
+                    <p class="intro">has successfully participated in the webinar</p>
+                    <h2 id="webinar_title"></h2>
                     <div class="cert-footer">
-                        <div class="sign-block">
-                            <div class="sign-name">Major Muhammad Usama Durani</div>
-                            <div class="sign-role">Instructor | Psychiatrist</div>
+                        <div class="sign-part">
+                            <p class="sign-name">Major Muhammad Usama Durani</p>
+                            <p class="role">Instructor | Psychiatrist</p>
                         </div>
-                        <div class="date-block">
-                            <div id="certDate" class="date-val"></div>
-                            <div class="sign-role">Verification Date</div>
+                        <div class="date-part">
+                            <p id="certDate"></p>
+                            <p class="role">Date of Issue</p>
                         </div>
                     </div>
                 </div>
             </div>
+            <button class="print-btn" onclick="window.print()">Download / Print</button>
         </div>
     </div>
-
-    <div class="portal-footer">
-        <p>© 2026 Psychology Training Institute. All Rights Reserved.</p>
-        <p>Support: support@psychinstitute.com</p>
-    </div>
-
     <script src="script.js"></script>
 </body>
 </html>
