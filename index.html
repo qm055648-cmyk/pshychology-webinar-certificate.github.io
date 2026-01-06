@@ -1,32 +1,51 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Certificate Verification</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+async function verify() {
+    let idInput = document.getElementById("studentId").value.trim().toLowerCase();
+    const msg = document.getElementById("msg");
+    const cert = document.getElementById("certificate");
+    const nameField = document.getElementById("name");
 
-<div class="container">
-  <h1>Certificate Verification Portal</h1>
-  <p>Enter your Student ID</p>
+    // Confusion khatam karne ke liye: agar koi '1' likhay toh usay 'l' samajhna
+    idInput = idInput.replace(/1/g, 'l');
 
-  <input type="text" id="studentId" placeholder="e.g. PSY001">
-  <button onclick="verify()">Verify</button>
+    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRjnVzX1JxAGMxClvi4MVQJwmyE3bx6djlk8qvZ8NSN2hKe3Qz7AGblXt_tZHQnYRRxmWDrFuY55ZRN/pub?gid=0&single=true&output=csv';
 
-  <p id="msg"></p>
+    if (idInput === "") {
+        msg.innerHTML = "Please enter a Student ID.";
+        msg.style.color = "orange";
+        return;
+    }
 
-  <div id="certificate" class="certificate">
-    <h2>Certificate of Participation</h2>
-    <p>This certifies that</p>
-    <h3 id="name"></h3>
-    <p>has successfully attended</p>
-    <h4 id="webinar"></h4>
-    <p>Conducted by</p>
-    <strong>Major Muhammad Usama Durani</strong><br>
-    <span>Gold Medalist | Psychiatrist</span>
-  </div>
-</div>
+    msg.innerHTML = "Verifying... Please wait.";
+    msg.style.color = "blue";
+    cert.style.display = "none";
 
-<script src="script.js"></script>
-</body>
-</html>
+    try {
+        const response = await fetch(sheetURL);
+        const csvData = await response.text();
+        const rows = csvData.split('\n').map(row => row.split(','));
+
+        let found = false;
+        for (let i = 1; i < rows.length; i++) {
+            // Sheet wali ID ko bhi clean karna
+            let sheetID = rows[i][0] ? rows[i][0].trim().toLowerCase().replace(/1/g, 'l') : "";
+            let studentName = rows[i][1] ? rows[i][1].trim() : "";
+
+            if (sheetID === idInput) {
+                nameField.innerHTML = studentName; 
+                found = true;
+                break;
+            }
+        }
+
+        if (found) {
+            msg.innerHTML = "✅ Certificate Verified!";
+            msg.style.color = "green";
+            cert.style.display = "block";
+        } else {
+            msg.innerHTML = "❌ Record not found. Please check your ID.";
+            msg.style.color = "red";
+        }
+    } catch (error) {
+        msg.innerHTML = "⚠️ Error connecting to sheet.";
+    }
+}
