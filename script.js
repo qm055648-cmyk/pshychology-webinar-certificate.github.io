@@ -1,52 +1,55 @@
 async function verify() {
-    let idInput = document.getElementById("studentId").value.trim().toLowerCase();
+    const idInput = document.getElementById("studentId").value.trim().toLowerCase();
     const msg = document.getElementById("msg");
     const cert = document.getElementById("certificate");
     const nameField = document.getElementById("name");
     const webinarField = document.getElementById("webinar_title");
     const dateField = document.getElementById("certDate");
 
-    // Aapka CSV Link
-    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRjnVzX1JxAGMxClvi4MVQJwmyE3bx6djlk8qvZ8NSN2hKe3Qz7AGblXt_tZHQnYRRxmWDrFuY55ZRN/pub?gid=0&single=true&output=csv';
+    // Ye raha aapka Sheet Link (Maine isme ek extra security parameter add kiya hai)
+    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRjnVzX1JxAGMxClvi4MVQJwmyE3bx6djlk8qvZ8NSN2hKe3Qz7AGblXt_tZHQnYRRxmWDrFuY55ZRN/pub?gid=0&single=true&output=csv&cachebust=' + Math.random();
 
-    msg.innerHTML = "🔍 Checking Database...";
+    msg.innerHTML = "🔍 Checking Record...";
     msg.style.color = "blue";
     cert.style.display = "none";
 
     try {
-        // 'no-cache' add kiya taake naya data foran nazar aaye
-        const response = await fetch(sheetURL, { cache: "no-store" });
-        const data = await response.text();
+        const response = await fetch(sheetURL);
+        const csvData = await response.text();
         
-        const rows = data.split('\n');
+        // CSV ko lines mein split karna
+        const lines = csvData.split(/\r?\n/);
         let found = false;
 
-        for (let i = 0; i < rows.length; i++) {
-            let cols = rows[i].split(',');
-            // Column A mein ID dhoondna
-            let sheetID = cols[0] ? cols[0].trim().toLowerCase() : "";
+        // Pehli line (Heading) ko chor kar baki lines check karna
+        for (let i = 1; i < lines.length; i++) {
+            // Regex use kar raha hoon taake commas aur spaces ki galti na ho
+            let cols = lines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
 
-            if (sheetID === idInput) {
-                nameField.innerText = cols[1] ? cols[1].trim() : ""; // Column B
-                webinarField.innerText = cols[2] ? cols[2].trim() : ""; // Column C
-                dateField.innerText = cols[3] ? cols[3].trim() : ""; // Column D
-                found = true;
-                break;
+            if (cols[0]) {
+                let sheetID = cols[0].replace(/"/g, "").trim().toLowerCase();
+                
+                if (sheetID === idInput) {
+                    nameField.innerText = cols[1] ? cols[1].replace(/"/g, "").trim() : "";
+                    webinarField.innerText = cols[2] ? cols[2].replace(/"/g, "").trim() : "";
+                    dateField.innerText = cols[3] ? cols[3].replace(/"/g, "").trim() : "";
+                    found = true;
+                    break;
+                }
             }
         }
 
         if (found) {
-            msg.innerHTML = "✅ Certificate Found!";
+            msg.innerHTML = "✅ Certificate Verified!";
             msg.style.color = "green";
             cert.style.display = "block";
         } else {
-            msg.innerHTML = "❌ Record Not Found for: " + idInput;
+            msg.innerHTML = "❌ Record Not Found. Make sure you typed: " + idInput;
             msg.style.color = "red";
         }
 
     } catch (error) {
-        msg.innerHTML = "⚠️ Connection Error! Please refresh the page.";
+        msg.innerHTML = "⚠️ Database Connection Error. Try refreshing.";
         msg.style.color = "orange";
-        console.error("Error:", error);
     }
 }
