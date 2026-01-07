@@ -3,49 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Psychology Training Portal</title>
+    <title>Verification Portal | Psychology Training Institute</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 </head>
 <body>
-    <div class="main-header">
-        <h1>Psychology Training Institute</h1>
-        <p>Verification & Excellence Portal</p>
-    </div>
 
-    <div class="container">
-        <div class="search-section">
-            <h2>Search Certificate</h2>
-            <div class="input-box">
-                <input type="text" id="studentId" placeholder="ID (e.g. psy-2026-001)">
+    <header class="main-nav">
+        <div class="logo">PTI <span>Official</span></div>
+    </header>
+
+    <div class="hero-section">
+        <h1>Verify Your Achievement</h1>
+        <p>Enter your unique certificate ID to authenticate your participation.</p>
+        
+        <div class="search-container">
+            <div class="input-wrapper">
+                <input type="text" id="studentId" placeholder="Enter ID (e.g. psy-2026-001)">
                 <button onclick="verify()">Verify Now</button>
             </div>
             <p id="msg"></p>
         </div>
+    </div>
 
-        <div id="certificate" class="certificate-frame" style="display: none;">
-            <div class="inner-border">
-                <div class="cert-body">
-                    <span class="cert-label">CERTIFICATE OF PARTICIPATION</span>
-                    <p class="intro">This is to officially certify that</p>
-                    <h1 id="name"></h1>
-                    <p class="intro">has successfully participated in the webinar</p>
-                    <h2 id="webinar_title"></h2>
+    <div class="container">
+        <div id="certificate" class="cert-card" style="display: none;">
+            <div class="cert-border-outer">
+                <div class="cert-border-inner">
+                    <div class="cert-header">
+                        <div class="gold-seal">🏆</div>
+                        <h2>CERTIFICATE OF COMPLETION</h2>
+                        <p>This recognizes the dedication and success of</p>
+                    </div>
+                    
+                    <h1 id="name">Recipient Name</h1>
+                    
+                    <div class="cert-body">
+                        <p>for successfully participating in the professional webinar titled:</p>
+                        <h3 id="webinar_title">Course Title Goes Here</h3>
+                    </div>
+
                     <div class="cert-footer">
-                        <div class="sign-part">
-                            <p class="sign-name">Major Muhammad Usama Durani</p>
-                            <p class="role">Instructor | Psychiatrist</p>
+                        <div class="signature-box">
+                            <p class="sig-name">Major Muhammad Usama Durani</p>
+                            <p class="sig-title">Instructor | Psychiatrist</p>
                         </div>
-                        <div class="date-part">
-                            <p id="certDate"></p>
-                            <p class="role">Date of Issue</p>
+                        <div class="date-box">
+                            <p id="certDate" class="date-val">--/--/--</p>
+                            <p class="sig-title">Issue Date</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <button class="print-btn" onclick="window.print()">Download / Print</button>
+            <button class="download-btn" onclick="window.print()">Download Certificate</button>
         </div>
     </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Psychology Training Institute. All Rights Reserved.</p>
+            <nav class="footer-links">
+                <a href="#">Privacy Policy</a> | 
+                <a href="#">Terms of Service</a> | 
+                <a href="#">Support</a>
+            </nav>
+            <p class="credit">Developed for Professional Excellence</p>
+        </div>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
