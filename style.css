@@ -1,75 +1,23 @@
-/* Luxury Certificate Styling */
-.cert-card {
-    background: #fff;
-    max-width: 850px;
-    margin: 40px auto;
-    padding: 15px;
-    position: relative;
-    border: 2px solid #ddd;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-}
+body { font-family: 'Poppins', sans-serif; margin: 0; background: #f0f2f5; text-align: center; }
 
-.cert-border-outer {
-    border: 15px solid #1a2a6c; /* Royal Blue */
-    padding: 10px;
-    background: #fff;
-}
+.hero-section { background: #1a2a6c; color: white; padding: 60px 20px; }
+.logo { font-family: 'Cinzel', serif; font-size: 22px; color: #d4af37; margin-bottom: 10px; }
 
-.cert-border-inner {
-    border: 3px solid #d4af37; /* Gold Border */
-    padding: 50px;
-    text-align: center;
-    background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png'); /* Paper Texture */
-}
+.search-box { margin-top: 20px; }
+input { padding: 12px; width: 250px; border-radius: 5px; border: none; font-size: 16px; }
+button { padding: 12px 25px; background: #d4af37; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
 
-.cert-header h2 {
-    font-family: 'Cinzel', serif;
-    font-size: 32px;
-    color: #1a2a6c;
-    margin-bottom: 5px;
-    letter-spacing: 4px;
-}
+.cert-card { background: white; max-width: 800px; margin: 40px auto; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+.cert-border-outer { border: 12px solid #1a2a6c; padding: 5px; }
+.cert-border-inner { border: 2px solid #d4af37; padding: 40px; position: relative; }
 
-#name {
-    font-family: 'Cinzel', serif;
-    font-size: 48px;
-    color: #b21f1f; /* Dark Red for Name */
-    margin: 25px 0;
-    text-transform: uppercase;
-    border-bottom: 2px solid #d4af37;
-    display: inline-block;
-}
+.gold-seal { font-size: 50px; margin-bottom: 10px; }
+.cert-title { font-family: 'Cinzel', serif; color: #1a2a6c; font-size: 30px; letter-spacing: 2px; }
 
-.cert-body p { font-size: 18px; color: #555; font-style: italic; }
-#webinar_title { font-size: 24px; color: #333; font-weight: 600; margin: 15px 0; }
+#name { font-family: 'Cinzel', serif; font-size: 40px; color: #b21f1f; border-bottom: 2px solid #eee; display: inline-block; margin: 15px 0; }
+.cert-footer { display: flex; justify-content: space-between; margin-top: 50px; padding: 0 30px; }
+.sig-name, .date-val { border-top: 2px solid #333; font-weight: bold; padding-top: 5px; }
+.sig-role { font-size: 12px; color: #666; }
 
-.cert-footer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 60px;
-    padding: 0 40px;
-}
-
-.signature-box, .date-box { width: 220px; text-align: center; }
-.sig-name, .date-val { 
-    font-weight: bold; 
-    border-top: 2px solid #333; 
-    padding-top: 8px; 
-    font-size: 16px;
-}
-.sig-title { font-size: 12px; color: #777; margin-top: 3px; }
-
-/* Download Button */
-.download-btn {
-    background: #d4af37;
-    color: #fff;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 20px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
+.print-btn { background: #1a2a6c; color: white; padding: 10px 20px; border: none; border-radius: 5px; margin-top: 20px; cursor: pointer; }
+footer { background: #222; color: #777; padding: 20px; font-size: 13px; }
