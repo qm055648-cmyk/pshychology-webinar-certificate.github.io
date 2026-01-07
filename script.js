@@ -1,51 +1,55 @@
+// Firebase configuration (Bas API Key apni paste karen)
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY_HERE", 
+    authDomain: "certificate-portal-389d9.firebaseapp.com",
+    databaseURL: "https://certificate-portal-389d9-default-rtdb.firebaseio.com",
+    projectId: "certificate-portal-389d9",
+    storageBucket: "certificate-portal-389d9.appspot.com",
+    messagingSenderId: "333333333333", // Ye optional hai
+    appId: "1:333333333333:web:xxxxxxxxxxxx" // Ye optional hai
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
 async function verify() {
     const idInput = document.getElementById("studentId").value.trim().toLowerCase();
     const msg = document.getElementById("msg");
     const cert = document.getElementById("certificate");
 
-    // AAPKA NAYA LINK (Image 10 wala)
-    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ27SgNp1eufIFm41V_E8lXFh6_Nffz2-YLdNM2hOBmEg6Rd9SpOlyYvUUJzYNjh1k1Y5ICWSvKxy3E/pub?gid=0&single=true&output=csv';
-
     if (!idInput) {
-        msg.innerText = "⚠️ Please enter an ID!";
-        msg.style.color = "orange";
+        msg.innerText = "⚠️ Please enter a Certificate ID!";
+        msg.style.color = "#ff9800";
         return;
     }
 
-    msg.innerText = "🔍 Checking Database...";
-    msg.style.color = "blue";
+    msg.innerText = "🔍 Authenticating with Database...";
+    msg.style.color = "white";
     cert.style.display = "none";
 
-    try {
-        const response = await fetch(sheetURL + "&cache=" + Math.random());
-        const data = await response.text();
-        
-        // CSV data ko lines mein split karna
-        const rows = data.split(/\r?\n/);
-        let found = false;
-
-        for (let i = 1; i < rows.length; i++) {
-            const cols = rows[i].split(",");
-            // ID ko clean karke match karna
-            if (cols[0] && cols[0].replace(/["']/g, "").trim().toLowerCase() === idInput) {
-                document.getElementById("name").innerText = cols[1].replace(/["']/g, "").trim();
-                document.getElementById("webinar_title").innerText = cols[2].replace(/["']/g, "").trim();
-                document.getElementById("certDate").innerText = cols[3].replace(/["']/g, "").trim();
-                found = true;
-                break;
-            }
-        }
-
-        if (found) {
-            msg.innerText = "✅ Record Found!";
-            msg.style.color = "green";
+    // Firebase database call
+    database.ref('students/' + idInput).once('value').then((snapshot) => {
+        if (snapshot.exists()) {
+            const data = snapshot.val();
+            
+            // Updating Certificate Fields
+            document.getElementById("name").innerText = data.name;
+            document.getElementById("webinar_title").innerText = data.course;
+            document.getElementById("certDate").innerText = data.date;
+            
+            msg.innerText = "✅ Verification Successful!";
+            msg.style.color = "#4CAF50";
             cert.style.display = "block";
+            
+            // Scroll to certificate automatically
+            cert.scrollIntoView({ behavior: 'smooth' });
         } else {
-            msg.innerText = "❌ Record Not Found for: " + idInput;
-            msg.style.color = "red";
+            msg.innerText = "❌ ID Not Found! Please check the ID and try again.";
+            msg.style.color = "#ff5252";
         }
-    } catch (e) {
-        msg.innerText = "⚠️ Connection Error. Refresh and try again.";
-        msg.style.color = "orange";
-    }
+    }).catch((error) => {
+        msg.innerText = "⚠️ Connection error. Please try again later.";
+        console.error("Firebase Error:", error);
+    });
 }
