@@ -1,12 +1,13 @@
-// Firebase configuration (Bas API Key apni paste karen)
+// Firebase configuration (Aapki image se li gayi details)
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY_HERE", 
-    authDomain: "certificate-portal-389d9.firebaseapp.com",
-    databaseURL: "https://certificate-portal-389d9-default-rtdb.firebaseio.com",
-    projectId: "certificate-portal-389d9",
-    storageBucket: "certificate-portal-389d9.appspot.com",
-    messagingSenderId: "333333333333", // Ye optional hai
-    appId: "1:333333333333:web:xxxxxxxxxxxx" // Ye optional hai
+  apiKey: "AIzaSyC95-aIknA2rwVl8_RHJ1Kgn433LAlIqrI",
+  authDomain: "certificate-portal-389d9.firebaseapp.com",
+  databaseURL: "https://certificate-portal-389d9-default-rtdb.firebaseio.com",
+  projectId: "certificate-portal-389d9",
+  storageBucket: "certificate-portal-389d9.firebasestorage.app",
+  messagingSenderId: "663113680380",
+  appId: "1:663113680380:web:d1123e33be4d2fdb8c9e79",
+  measurementId: "G-8HT13BKBP0"
 };
 
 // Initialize Firebase
@@ -45,7 +46,7 @@ async function verify() {
             // Scroll to certificate automatically
             cert.scrollIntoView({ behavior: 'smooth' });
         } else {
-            msg.innerText = "❌ ID Not Found! Please check the ID and try again.";
+            msg.innerText = "❌ ID Not Found! Make sure you typed: psy-2026-001";
             msg.style.color = "#ff5252";
         }
     }).catch((error) => {
