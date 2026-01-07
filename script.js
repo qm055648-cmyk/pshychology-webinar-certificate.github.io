@@ -1,47 +1,55 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyC95-aIknA2rwVl8_RHJ1Kgn433LAlIqrI",
-  authDomain: "certificate-portal-389d9.firebaseapp.com",
-  databaseURL: "https://certificate-portal-389d9-default-rtdb.firebaseio.com",
-  projectId: "certificate-portal-389d9",
-  storageBucket: "certificate-portal-389d9.firebasestorage.app",
-  messagingSenderId: "663113680380",
-  appId: "1:663113680380:web:d1123e33be4d2fdb8c9e79"
-};
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Verification Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+</head>
+<body>
+    <div class="hero-section">
+        <div class="logo">PTI Official</div>
+        <h1>Certificate Verification</h1>
+        <div class="search-box">
+            <input type="text" id="studentId" placeholder="Enter ID (e.g. psy-2026-001)">
+            <button onclick="verify()">Verify Now</button>
+        </div>
+        <p id="msg"></p>
+    </div>
 
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
+    <div id="certificate" class="cert-card" style="display: none;">
+        <div class="cert-border-outer">
+            <div class="cert-border-inner">
+                <div class="cert-content">
+                    <div class="gold-seal">🏆</div>
+                    <h2 class="cert-title">CERTIFICATE OF COMPLETION</h2>
+                    <p class="cert-intro">This is to certify that</p>
+                    <h1 id="name">Name Not Found</h1>
+                    <p class="cert-intro">has successfully completed the webinar</p>
+                    <h3 id="webinar_title">Course Not Found</h3>
+                    
+                    <div class="cert-footer">
+                        <div class="sig-block">
+                            <p class="sig-name">Major Muhammad Usama Durani</p>
+                            <p class="sig-role">Instructor | Psychiatrist</p>
+                        </div>
+                        <div class="date-block">
+                            <p id="certDate" class="date-val">--/--/--</p>
+                            <p class="sig-role">Issue Date</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="print-btn" onclick="window.print()">Download / Print</button>
+    </div>
 
-async function verify() {
-    const idInput = document.getElementById("studentId").value.trim(); 
-    const msg = document.getElementById("msg");
-    const cert = document.getElementById("certificate");
-
-    if (!idInput) {
-        msg.innerText = "⚠️ Please enter a Certificate ID!";
-        return;
-    }
-
-    msg.innerText = "🔍 Verifying...";
-    cert.style.display = "none";
-
-    database.ref('students/' + idInput).once('value').then((snapshot) => {
-        if (snapshot.exists()) {
-            const data = snapshot.val();
-            
-            // Fix for Undefined: Pehle check karega small 'name', phir Capital 'Name'
-            document.getElementById("name").innerText = data.name || data.Name || "Not Available";
-            document.getElementById("webinar_title").innerText = data.course || data.Course || "Not Available";
-            document.getElementById("certDate").innerText = data.date || data.Date || "--/--/--";
-            
-            msg.innerText = "✅ Verification Successful!";
-            msg.style.color = "#4CAF50";
-            cert.style.display = "block";
-            cert.scrollIntoView({ behavior: 'smooth' });
-        } else {
-            msg.innerText = "❌ ID Not Found! Check spelling: " + idInput;
-            msg.style.color = "#ff5252";
-        }
-    }).catch((e) => {
-        msg.innerText = "⚠️ Error connecting to database.";
-    });
-}
+    <footer>
+        <p>&copy; 2026 Psychology Training Institute. All Rights Reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
