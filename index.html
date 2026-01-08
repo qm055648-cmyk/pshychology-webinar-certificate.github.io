@@ -1,33 +1,65 @@
-<div id="certificate" class="certificate-wrapper" style="display: none;">
-    <div class="cert-outer-frame">
-        <div class="cert-inner-frame">
-            <div class="cert-header">
-                <div class="gold-trophy">🏆</div>
-                <h2 class="cert-main-title">CERTIFICATE OF COMPLETION</h2>
-                <p class="cert-sub-text">This recognizes the dedication and success of</p>
-            </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PTI Official Verification Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+</head>
+<body>
 
-            <div class="cert-recipient">
-                <h1 id="name">STUDENT NAME</h1>
-                <div class="gold-line"></div>
-            </div>
+    <div class="hero-section">
+        <div class="logo">PTI Official</div>
+        <h1>Certificate Verification</h1>
+        <p>Verify your professional achievements securely.</p>
+        <div class="search-box">
+            <input type="text" id="studentId" placeholder="Enter Certificate ID...">
+            <button onclick="verify()">Verify Now</button>
+        </div>
+        <p id="msg"></p>
+    </div>
 
-            <div class="cert-body">
-                <p>for successfully participating in the professional webinar titled:</p>
-                <h3 id="webinar_title">WEBINAR TITLE</h3>
-            </div>
-
-            <div class="cert-footer">
-                <div class="sig-section">
-                    <p class="sig-name">Major Muhammad Usama Durani</p>
-                    <p class="sig-rank">Instructor | Psychiatrist</p>
+    <div id="certificate" class="certificate-wrapper" style="display: none;">
+        <div class="cert-outer-frame">
+            <div class="cert-inner-frame">
+                <div class="cert-header">
+                    <div class="gold-trophy">🏆</div>
+                    <h2 class="cert-main-title">CERTIFICATE OF COMPLETION</h2>
+                    <p class="cert-sub-text">This recognizes the dedication and success of</p>
                 </div>
-                <div class="date-section">
-                    <p id="certDate" class="date-val">--/--/--</p>
-                    <p class="sig-rank">Issue Date</p>
+
+                <div class="cert-recipient">
+                    <h1 id="name">STUDENT NAME</h1>
+                    <div class="gold-line"></div>
+                </div>
+
+                <div class="cert-body">
+                    <p>for successfully participating in the professional webinar titled:</p>
+                    <h3 id="webinar_title">WEBINAR TITLE</h3>
+                </div>
+
+                <div class="cert-footer">
+                    <div class="sig-section">
+                        <p class="sig-name">Major Muhammad Usama Durani</p>
+                        <p class="sig-role">Instructor | Psychiatrist</p>
+                    </div>
+                    <div class="date-section">
+                        <p id="certDate" class="date-val">--/--/--</p>
+                        <p class="sig-role">Issue Date</p>
+                    </div>
                 </div>
             </div>
         </div>
+        <button class="download-btn" onclick="window.print()">Download Certificate</button>
     </div>
-    <button class="action-btn" onclick="window.print()">Download Certificate</button>
-</div>
+
+    <footer>
+        <p>&copy; 2026 Psychology Training Institute. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
