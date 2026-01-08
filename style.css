@@ -1,34 +1,106 @@
-<div id="certificate" class="certificate-wrapper" style="display: none;">
-    <div class="cert-card-premium">
-        <div class="border-pattern">
-            <div class="cert-inner-content">
-                <div class="cert-header-new">
-                    <h2 class="institute-title">PSYCHOLOGY TRAINING INSTITUTE</h2>
-                    <div class="gold-line-thin"></div>
-                    <h3 class="cert-type-label">CERTIFICATE OF COMPLETION</h3>
-                </div>
+/* Premium Certificate Styling */
+.certificate-wrapper {
+    margin: 50px auto;
+    max-width: 900px;
+    padding: 10px;
+}
 
-                <div class="cert-body-new">
-                    <p class="text-small">This is to certify that</p>
-                    <h1 id="name" class="recipient-name">STUDENT NAME</h1>
-                    <p class="text-small">has successfully met all the requirements for the professional webinar</p>
-                    <h2 id="webinar_title" class="course-name">COURSE TITLE</h2>
-                </div>
+.cert-card-premium {
+    background: #fffcf5; /* Elegant Cream White */
+    padding: 20px;
+    border: 2px solid #e0e0e0;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+    position: relative;
+}
 
-                <div class="cert-footer-new">
-                    <div class="footer-item">
-                        <div class="sig-line"></div>
-                        <p class="sig-name">Major Muhammad Usama Durani</p>
-                        <p class="sig-title">Instructor | Psychiatrist</p>
-                    </div>
-                    <div class="footer-item">
-                        <div class="sig-line"></div>
-                        <p id="certDate" class="date-val">--/--/--</p>
-                        <p class="sig-title">Issue Date</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <button class="download-btn-modern" onclick="window.print()">Download Certificate</button>
-</div>
+.border-pattern {
+    border: 10px double #1a2a6c; /* Double Navy Blue Border */
+    padding: 40px;
+}
+
+.cert-inner-content {
+    border: 1px solid #d4af37; /* Thin Gold Frame */
+    padding: 40px;
+    text-align: center;
+}
+
+.institute-title {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    color: #1a2a6c;
+    letter-spacing: 4px;
+    margin-bottom: 5px;
+}
+
+.gold-line-thin {
+    height: 1.5px;
+    background: #d4af37;
+    width: 150px;
+    margin: 10px auto;
+}
+
+.cert-type-label {
+    font-family: 'Cinzel', serif;
+    font-size: 32px;
+    color: #1a2a6c;
+    margin-top: 20px;
+    letter-spacing: 2px;
+}
+
+.cert-body-new { margin: 40px 0; }
+
+.text-small {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    color: #666;
+    font-style: italic;
+}
+
+.recipient-name {
+    font-family: 'Cinzel', serif;
+    font-size: 48px;
+    color: #b21f1f; /* Classy Deep Red */
+    margin: 15px 0;
+    border-bottom: 1px solid #eee;
+    display: inline-block;
+}
+
+.course-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 26px;
+    color: #333;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.cert-footer-new {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 60px;
+    padding: 0 40px;
+}
+
+.footer-item { width: 250px; }
+.sig-line { height: 1px; background: #333; margin-bottom: 8px; }
+.sig-name, .date-val { font-weight: 600; font-size: 16px; margin: 0; color: #1a2a6c; }
+.sig-title { font-size: 12px; color: #888; margin-top: 2px; }
+
+.download-btn-modern {
+    background: #1a2a6c;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-weight: 600;
+    margin-top: 30px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(26,42,108,0.3);
+    transition: 0.3s;
+}
+
+.download-btn-modern:hover { transform: translateY(-2px); background: #b21f1f; }
+
+@media print {
+    .hero-section, footer, .download-btn-modern { display: none; }
+    .cert-card-premium { box-shadow: none; border: none; }
+}
