@@ -1,106 +1,38 @@
-/* Premium Certificate Styling */
-.certificate-wrapper {
-    margin: 50px auto;
-    max-width: 900px;
-    padding: 10px;
-}
+body { font-family: 'Poppins', sans-serif; margin: 0; background: #f4f7f6; text-align: center; color: #333; }
 
-.cert-card-premium {
-    background: #fffcf5; /* Elegant Cream White */
-    padding: 20px;
-    border: 2px solid #e0e0e0;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.12);
-    position: relative;
-}
+/* Hero Section */
+.hero-section { background: #1a2a6c; color: white; padding: 60px 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+.logo { font-family: 'Cinzel', serif; font-size: 24px; color: #d4af37; margin-bottom: 10px; font-weight: bold; letter-spacing: 2px; }
+.search-box { margin-top: 25px; display: flex; justify-content: center; gap: 10px; }
+input { padding: 12px 20px; width: 280px; border-radius: 5px; border: none; font-size: 16px; outline: none; }
+button { padding: 12px 25px; background: #d4af37; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+button:hover { background: #b21f1f; }
+#msg { margin-top: 15px; font-weight: 600; }
 
-.border-pattern {
-    border: 10px double #1a2a6c; /* Double Navy Blue Border */
-    padding: 40px;
-}
+/* Certificate Luxury Design */
+.certificate-wrapper { margin: 50px auto; max-width: 850px; padding: 20px; animation: fadeIn 0.8s ease; }
+.cert-card-premium { background: #fffcf5; padding: 15px; border: 1px solid #e0e0e0; box-shadow: 0 30px 60px rgba(0,0,0,0.15); }
+.border-pattern { border: 10px double #1a2a6c; padding: 35px; }
+.cert-inner-content { border: 1px solid #d4af37; padding: 40px; text-align: center; background: white; }
 
-.cert-inner-content {
-    border: 1px solid #d4af37; /* Thin Gold Frame */
-    padding: 40px;
-    text-align: center;
-}
+.institute-title { font-family: 'Cinzel', serif; font-size: 18px; color: #1a2a6c; letter-spacing: 3px; margin: 0; }
+.gold-line-thin { height: 1.5px; background: #d4af37; width: 120px; margin: 10px auto; }
+.cert-type-label { font-family: 'Cinzel', serif; font-size: 28px; color: #1a2a6c; margin-top: 15px; letter-spacing: 1px; }
 
-.institute-title {
-    font-family: 'Cinzel', serif;
-    font-size: 20px;
-    color: #1a2a6c;
-    letter-spacing: 4px;
-    margin-bottom: 5px;
-}
+.cert-body-new { margin: 30px 0; }
+.text-small { font-size: 14px; color: #666; font-style: italic; }
+.recipient-name { font-family: 'Cinzel', serif; font-size: 42px; color: #b21f1f; margin: 10px 0; border-bottom: 1px solid #eee; display: inline-block; padding-bottom: 5px; }
+.course-name { font-size: 24px; color: #333; font-weight: 600; margin-top: 5px; }
 
-.gold-line-thin {
-    height: 1.5px;
-    background: #d4af37;
-    width: 150px;
-    margin: 10px auto;
-}
-
-.cert-type-label {
-    font-family: 'Cinzel', serif;
-    font-size: 32px;
-    color: #1a2a6c;
-    margin-top: 20px;
-    letter-spacing: 2px;
-}
-
-.cert-body-new { margin: 40px 0; }
-
-.text-small {
-    font-family: 'Poppins', sans-serif;
-    font-size: 15px;
-    color: #666;
-    font-style: italic;
-}
-
-.recipient-name {
-    font-family: 'Cinzel', serif;
-    font-size: 48px;
-    color: #b21f1f; /* Classy Deep Red */
-    margin: 15px 0;
-    border-bottom: 1px solid #eee;
-    display: inline-block;
-}
-
-.course-name {
-    font-family: 'Poppins', sans-serif;
-    font-size: 26px;
-    color: #333;
-    font-weight: 600;
-    margin-top: 10px;
-}
-
-.cert-footer-new {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 60px;
-    padding: 0 40px;
-}
-
-.footer-item { width: 250px; }
+.cert-footer-new { display: flex; justify-content: space-between; margin-top: 50px; padding: 0 20px; }
+.footer-item { width: 220px; }
 .sig-line { height: 1px; background: #333; margin-bottom: 8px; }
-.sig-name, .date-val { font-weight: 600; font-size: 16px; margin: 0; color: #1a2a6c; }
-.sig-title { font-size: 12px; color: #888; margin-top: 2px; }
+.sig-name, .date-val { font-weight: 600; font-size: 15px; color: #1a2a6c; margin: 0; }
+.sig-title { font-size: 11px; color: #888; }
 
-.download-btn-modern {
-    background: #1a2a6c;
-    color: white;
-    border: none;
-    padding: 15px 40px;
-    border-radius: 30px;
-    font-weight: 600;
-    margin-top: 30px;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(26,42,108,0.3);
-    transition: 0.3s;
-}
+.download-btn-modern { background: #1a2a6c; color: white; padding: 15px 40px; border: none; border-radius: 30px; font-weight: 600; margin-top: 30px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 
-.download-btn-modern:hover { transform: translateY(-2px); background: #b21f1f; }
+footer { background: #222; color: #888; padding: 20px; font-size: 12px; margin-top: 50px; }
 
-@media print {
-    .hero-section, footer, .download-btn-modern { display: none; }
-    .cert-card-premium { box-shadow: none; border: none; }
-}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@media print { .hero-section, footer, .download-btn-modern { display: none; } .cert-card-premium { box-shadow: none; } }
