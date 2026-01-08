@@ -8,7 +8,6 @@ const firebaseConfig = {
   appId: "1:663113680380:web:d1123e33be4d2fdb8c9e79"
 };
 
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
@@ -18,7 +17,7 @@ function verify() {
     const cert = document.getElementById("certificate");
 
     if (!idInput) {
-        msg.innerText = "⚠️ Please enter ID!";
+        msg.innerText = "⚠️ Please enter an ID!";
         msg.style.color = "orange";
         return;
     }
@@ -30,22 +29,19 @@ function verify() {
     database.ref('students/' + idInput).once('value').then((snapshot) => {
         if (snapshot.exists()) {
             const data = snapshot.val();
-            
-            // Sab spelling variants cover kiye hain taake 'undefined' na aaye
-            document.getElementById("name").innerText = data.name || data.Name || data.NAME || "Not Found";
-            document.getElementById("webinar_title").innerText = data.course || data.Course || data.Webinar || "Not Found";
-            document.getElementById("certDate").innerText = data.date || data.Date || data.DATE || "--/--/--";
+            document.getElementById("name").innerText = data.name || data.Name || "Not Found";
+            document.getElementById("webinar_title").innerText = data.course || data.Course || "Not Found";
+            document.getElementById("certDate").innerText = data.date || data.Date || "--/--/--";
 
-            msg.innerText = "✅ Verification Successful!";
+            msg.innerText = "✅ Verified Successfully!";
             msg.style.color = "#00ff00";
             cert.style.display = "block";
             cert.scrollIntoView({ behavior: 'smooth' });
         } else {
-            msg.innerText = "❌ No Record Found for: " + idInput;
+            msg.innerText = "❌ Record Not Found!";
             msg.style.color = "#ff4444";
         }
     }).catch((e) => {
-        msg.innerText = "⚠️ Connection error.";
-        console.error(e);
+        msg.innerText = "⚠️ Connection Error.";
     });
 }
