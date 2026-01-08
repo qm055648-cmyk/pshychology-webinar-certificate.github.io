@@ -1,75 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Official Verification Portal | PTI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
-</head>
-<body>
-
-    <div class="wrapper">
-        <header>
-            <div class="logo-text">PSYCHOLOGY TRAINING INSTITUTE</div>
-            <p class="tagline">Empowering Minds, Validating Excellence</p>
-        </header>
-
-        <main class="search-section">
-            <div class="glass-card">
-                <h2>Verify Certificate</h2>
-                <p>Enter the credentials provided on your certificate to authenticate.</p>
-                <div class="input-group">
-                    <input type="text" id="studentId" placeholder="Certificate ID (e.g., psy-2026-001)">
-                    <button onclick="verify()">Validate Now</button>
-                </div>
-                <div id="msg"></div>
+<div id="certificate" class="certificate-wrapper" style="display: none;">
+    <div class="cert-outer-frame">
+        <div class="cert-inner-frame">
+            <div class="cert-header">
+                <div class="gold-trophy">🏆</div>
+                <h2 class="cert-main-title">CERTIFICATE OF COMPLETION</h2>
+                <p class="cert-sub-text">This recognizes the dedication and success of</p>
             </div>
-        </main>
 
-        <div id="certificate" class="certificate-wrapper" style="display: none;">
-            <div class="outer-frame">
-                <div class="inner-frame">
-                    <div class="cert-header">
-                        <div class="institute-name">Psychology Training Institute</div>
-                        <div class="cert-label">Certificate of Completion</div>
-                    </div>
+            <div class="cert-recipient">
+                <h1 id="name">STUDENT NAME</h1>
+                <div class="gold-line"></div>
+            </div>
 
-                    <div class="cert-content">
-                        <p class="awarded-to">This is officially awarded to</p>
-                        <h1 id="name">STUDENT NAME</h1>
-                        <p class="statement">In recognition of successful participation and completion of the professional webinar</p>
-                        <h2 id="webinar_title">WEBINAR TITLE</h2>
-                        <div class="divider"></div>
-                    </div>
+            <div class="cert-body">
+                <p>for successfully participating in the professional webinar titled:</p>
+                <h3 id="webinar_title">WEBINAR TITLE</h3>
+            </div>
 
-                    <div class="cert-footer">
-                        <div class="sig-section">
-                            <div class="sig-line"></div>
-                            <p class="sig-name">Major Muhammad Usama Durani</p>
-                            <p class="sig-rank">Instructor | Psychiatrist</p>
-                        </div>
-                        <div class="seal-section">
-                            <div class="official-seal">OFFICIAL SEAL</div>
-                        </div>
-                        <div class="date-section">
-                            <div class="sig-line"></div>
-                            <p id="certDate" class="sig-name">--/--/--</p>
-                            <p class="sig-rank">Date of Issue</p>
-                        </div>
-                    </div>
+            <div class="cert-footer">
+                <div class="sig-section">
+                    <p class="sig-name">Major Muhammad Usama Durani</p>
+                    <p class="sig-rank">Instructor | Psychiatrist</p>
+                </div>
+                <div class="date-section">
+                    <p id="certDate" class="date-val">--/--/--</p>
+                    <p class="sig-rank">Issue Date</p>
                 </div>
             </div>
-            <button class="action-btn" onclick="window.print()">Download / Print Certificate</button>
         </div>
-
-        <footer>
-            <p>&copy; 2026 Psychology Training Institute. All Rights Reserved. | <a href="#">Security & Privacy</a></p>
-        </footer>
     </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+    <button class="action-btn" onclick="window.print()">Download Certificate</button>
+</div>
