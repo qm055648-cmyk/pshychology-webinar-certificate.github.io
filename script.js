@@ -8,28 +8,31 @@ function verify() {
         return;
     }
 
-    msg.innerText = "🔍 Searching..."; 
+    msg.innerText = "🔍 Searching in 'students' folder..."; 
     cert.style.display = "none";
 
-    // ✅ FIXED PATH: Ab data 'students' folder ke andar se dhonde ga
-    database.ref('students/' + idInput).once('value').then((snapshot) => {
+    // Data dhoondne ki koshish
+    database.ref('students/' + idInput).once('value')
+    .then((snapshot) => {
         if (snapshot.exists()) {
             const data = snapshot.val();
-            
-            // Data ko UI mein bharna
-            document.getElementById("name").innerText = data.name || "Not Found";
-            document.getElementById("webinar_title").innerText = data.course || "Not Found";
-            document.getElementById("certDate").innerText = data.date || "--/--/--";
+            console.log("Data Found:", data); // Ye browser console mein dikhayega
 
-            msg.innerText = "✅ Verification Successful!";
+            // UI update karna
+            document.getElementById("name").innerText = data.name || data.Name || "Name Error";
+            document.getElementById("webinar_title").innerText = data.course || data.Course || "Course Error";
+            document.getElementById("certDate").innerText = data.date || data.Date || "Date Error";
+
+            msg.innerText = "✅ Student Verified!";
             msg.style.color = "#00ff00";
             cert.style.display = "block";
         } else {
-            msg.innerText = "❌ No Record Found!";
+            msg.innerText = "❌ ID '" + idInput + "' not found in database.";
             msg.style.color = "#ff4444";
         }
-    }).catch((error) => {
-        msg.innerText = "⚠️ Error: Connection failed.";
-        console.error(error);
+    })
+    .catch((error) => {
+        msg.innerText = "⚠️ Connection Error: " + error.message;
+        console.error("Firebase Error:", error);
     });
 }
