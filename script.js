@@ -1,4 +1,4 @@
-// Firebase Configuration (Same as before)
+// Firebase Configuration
 const firebaseConfig = {
   apiKey: "AIzaSyC95-aIknA2rwVl8_RHJ1Kgn433LAlIqrI",
   authDomain: "certificate-portal-389d9.firebaseapp.com",
@@ -13,9 +13,11 @@ firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
 function verify() {
+
     const idInput = document.getElementById("studentId").value.trim();
     const msg = document.getElementById("msg");
     const cert = document.getElementById("certificate");
+    const iframe = document.getElementById("driveFrame");
 
     if (!idInput) {
         msg.innerText = "⚠️ Please enter an ID!";
@@ -23,25 +25,54 @@ function verify() {
     }
 
     msg.innerText = "🔍 Searching...";
+    msg.style.color = "#fff";
+
     cert.style.display = "none";
+    if (iframe) iframe.style.display = "none";
 
-    // ✅ 'students/' path lazmi hai kyunke data isi folder mein hai
+    // 🔍 Firebase se data fetch
     database.ref('students/' + idInput).once('value').then((snapshot) => {
-        if (snapshot.exists()) {
-            const data = snapshot.val();
-            
-            // UI mein data bharna (Google Sheet ke columns ke mutabiq)
-            document.getElementById("name").innerText = data.name || "N/A";
-            document.getElementById("webinar_title").innerText = data.course || "N/A";
-            document.getElementById("certDate").innerText = data.date || "N/A";
 
-            msg.innerText = "✅ Verification Successful!";
-            msg.style.color = "#00ff00";
-            cert.style.display = "block";
+        if (snapshot.exists()) {
+
+            const data = snapshot.val();
+
+            // 🔥 NEW LOGIC (Google Drive check)
+            if (data.certificateLink && data.certificateLink.trim() !== "") {
+
+                msg.innerText = "✅ Certificate Loaded!";
+                msg.style.color = "#00ff00";
+
+                // Auto certificate hide
+                cert.style.display = "none";
+
+                // Iframe show
+                if (iframe) {
+                    iframe.src = data.certificateLink;
+                    iframe.style.display = "block";
+                }
+
+            } else {
+
+                // 🔹 OLD SYSTEM (Auto Generated Certificate)
+
+                document.getElementById("name").innerText = data.name || "N/A";
+                document.getElementById("webinar_title").innerText = data.course || "N/A";
+                document.getElementById("certDate").innerText = data.date || "N/A";
+
+                msg.innerText = "✅ Verification Successful!";
+                msg.style.color = "#00ff00";
+
+                cert.style.display = "block";
+
+                if (iframe) iframe.style.display = "none";
+            }
+
         } else {
             msg.innerText = "❌ No Record Found!";
             msg.style.color = "#ff4444";
         }
+
     }).catch((error) => {
         msg.innerText = "⚠️ Error: Connection failed.";
         console.error(error);
