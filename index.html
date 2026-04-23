@@ -16,23 +16,43 @@
         <div class="logo">MQ PSYCHOLOGICAL HEALING CENTER OFFICIAL</div>
         <h1>Certificate Verification</h1>
         <p>Enter your ID to authenticate your achievement</p>
+        
         <div class="search-box">
-                        <div class="footer-item">
-                            <div class="sig-line"></div>
-                            <p class="sig-name">Major Dr Muhammad Usama Durani</p>
-                            <p class="sig-title">Instructor | Psychiatrist</p>
-                            <p class="sig-title">Instructor | GOLD MEDALIST Psychiatrist</p>
-                        </div>
-                        <div class="footer-item">
-                            <div class="sig-line"></div>
-                            <p id="certDate" class="date-val">--/--/--</p>
-                            <p class="sig-title">Issue Date</p>
-                        </div>
+            <input type="text" id="studentId" placeholder="Enter Student ID / Certificate Number" class="search-input">
+            <button onclick="verify()" class="verify-btn">Verify Certificate</button>
+        </div>
+        
+        <div id="msg" class="message"></div>
+        
+        <!-- Certificate Display Area -->
+        <div id="certificate" style="display: none;" class="certificate-container">
+            <div class="certificate-card">
+                <div class="certificate-header">
+                    <h2>CERTIFICATE OF ACHIEVEMENT</h2>
+                    <p>This certificate is proudly presented to</p>
+                </div>
+                <div class="certificate-body">
+                    <h1 id="name" class="student-name">____________</h1>
+                    <p>for successfully completing the webinar</p>
+                    <h3 id="webinar_title" class="webinar-title">____________</h3>
+                </div>
+                <div class="certificate-footer">
+                    <div class="footer-item">
+                        <div class="sig-line"></div>
+                        <p class="sig-name">Major Dr Muhammad Usama Durani</p>
+                        <p class="sig-title">Instructor | Psychiatrist</p>
+                        <p class="sig-title">GOLD MEDALIST Psychiatrist</p>
+                    </div>
+                    <div class="footer-item">
+                        <div class="sig-line"></div>
+                        <p id="certDate" class="date-val">--/--/--</p>
+                        <p class="sig-title">Issue Date</p>
                     </div>
                 </div>
             </div>
         </div>
-        <button class="download-btn-modern" onclick="window.print()">Download Certificate</button>
+        
+        <button class="download-btn-modern" onclick="window.print()" style="display: none;" id="downloadBtn">Download Certificate</button>
     </div>
 
     <footer>
