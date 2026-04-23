@@ -10,9 +10,9 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
+const db = firebase.database();
 
-// VERIFY FUNCTION
+// 🔍 VERIFY FUNCTION
 function verify() {
 
     const id = document.getElementById("studentId").value.trim();
@@ -21,7 +21,7 @@ function verify() {
     const frame = document.getElementById("driveFrame");
 
     if (!id) {
-        msg.innerText = "⚠️ Please enter ID";
+        msg.innerText = "⚠️ Please enter Certificate ID";
         msg.style.color = "yellow";
         return;
     }
@@ -32,11 +32,12 @@ function verify() {
     cert.style.display = "none";
     frame.style.display = "none";
 
-    database.ref("students/" + id).once("value")
+    // 🔥 SAME ID FORMAT (psy-2026-001)
+    db.ref("students/" + id).once("value")
     .then(snapshot => {
 
         if (!snapshot.exists()) {
-            msg.innerText = "❌ No record found";
+            msg.innerText = "❌ Invalid Certificate ID";
             msg.style.color = "red";
             return;
         }
@@ -44,9 +45,10 @@ function verify() {
         const data = snapshot.val();
         console.log("DATA:", data);
 
-        // 🔥 GOOGLE DRIVE CERTIFICATE
+        // ✅ CHECK LINK
         if (data.certificateLink && data.certificateLink.trim() !== "") {
 
+            // 👉 GOOGLE DRIVE CERTIFICATE
             frame.src = data.certificateLink;
             frame.style.display = "block";
 
@@ -55,7 +57,7 @@ function verify() {
 
         } else {
 
-            // 🔹 AUTO CERTIFICATE
+            // 👉 AUTO GENERATED CERTIFICATE (OLD SYSTEM)
             document.getElementById("name").innerText = data.name || "N/A";
             document.getElementById("webinar_title").innerText = data.course || "N/A";
             document.getElementById("certDate").innerText = data.date || "N/A";
