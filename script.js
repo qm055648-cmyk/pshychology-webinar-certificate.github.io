@@ -1,4 +1,4 @@
-// Firebase Config
+// Firebase Configuration (Same as before)
 const firebaseConfig = {
   apiKey: "AIzaSyC95-aIknA2rwVl8_RHJ1Kgn433LAlIqrI",
   authDomain: "certificate-portal-389d9.firebaseapp.com",
@@ -10,58 +10,40 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+const database = firebase.database();
 
 function verify() {
-
-    const id = document.getElementById("studentId").value.trim();
+    const idInput = document.getElementById("studentId").value.trim();
     const msg = document.getElementById("msg");
     const cert = document.getElementById("certificate");
-    const frame = document.getElementById("driveFrame");
 
-    if (!id) {
-        msg.innerText = "Enter ID";
+    if (!idInput) {
+        msg.innerText = "⚠️ Please enter an ID!";
         return;
     }
 
-    msg.innerText = "Searching...";
-
+    msg.innerText = "🔍 Searching...";
     cert.style.display = "none";
-    frame.style.display = "none";
 
-    db.ref("students/" + id).once("value")
-    .then(snapshot => {
+    // ✅ 'students/' path lazmi hai kyunke data isi folder mein hai
+    database.ref('students/' + idInput).once('value').then((snapshot) => {
+        if (snapshot.exists()) {
+            const data = snapshot.val();
+            
+            // UI mein data bharna (Google Sheet ke columns ke mutabiq)
+            document.getElementById("name").innerText = data.name || "N/A";
+            document.getElementById("webinar_title").innerText = data.course || "N/A";
+            document.getElementById("certDate").innerText = data.date || "N/A";
 
-        if (!snapshot.exists()) {
-            msg.innerText = "No Record Found";
-            return;
-        }
-
-        const data = snapshot.val();
-
-        // 🔥 DRIVE CERTIFICATE
-        if (data.certificateLink && data.certificateLink !== "") {
-
-            frame.src = data.certificateLink;
-            frame.style.display = "block";
-
-            msg.innerText = "Certificate Loaded";
-
-        } else {
-
-            // AUTO CERTIFICATE
-            document.getElementById("name").innerText = data.name;
-            document.getElementById("webinar_title").innerText = data.course;
-            document.getElementById("certDate").innerText = data.date;
-
+            msg.innerText = "✅ Verification Successful!";
+            msg.style.color = "#00ff00";
             cert.style.display = "block";
-
-            msg.innerText = "Verified Successfully";
+        } else {
+            msg.innerText = "❌ No Record Found!";
+            msg.style.color = "#ff4444";
         }
-
-    })
-    .catch(err => {
-        console.log(err);
-        msg.innerText = "Error";
+    }).catch((error) => {
+        msg.innerText = "⚠️ Error: Connection failed.";
+        console.error(error);
     });
 }
