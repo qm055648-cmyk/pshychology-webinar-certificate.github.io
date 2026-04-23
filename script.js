@@ -1,4 +1,4 @@
-// Firebase Configuration
+// Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyC95-aIknA2rwVl8_RHJ1Kgn433LAlIqrI",
   authDomain: "certificate-portal-389d9.firebaseapp.com",
@@ -12,69 +12,64 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
+// VERIFY FUNCTION
 function verify() {
 
-    const idInput = document.getElementById("studentId").value.trim();
+    const id = document.getElementById("studentId").value.trim();
     const msg = document.getElementById("msg");
     const cert = document.getElementById("certificate");
-    const iframe = document.getElementById("driveFrame");
+    const frame = document.getElementById("driveFrame");
 
-    if (!idInput) {
-        msg.innerText = "⚠️ Please enter an ID!";
+    if (!id) {
+        msg.innerText = "⚠️ Please enter ID";
+        msg.style.color = "yellow";
         return;
     }
 
     msg.innerText = "🔍 Searching...";
-    msg.style.color = "#fff";
+    msg.style.color = "white";
 
     cert.style.display = "none";
-    if (iframe) iframe.style.display = "none";
+    frame.style.display = "none";
 
-    // 🔍 Firebase se data fetch
-    database.ref('students/' + idInput).once('value').then((snapshot) => {
+    database.ref("students/" + id).once("value")
+    .then(snapshot => {
 
-        if (snapshot.exists()) {
-
-            const data = snapshot.val();
-
-            // 🔥 NEW LOGIC (Google Drive check)
-            if (data.certificateLink && data.certificateLink.trim() !== "") {
-
-                msg.innerText = "✅ Certificate Loaded!";
-                msg.style.color = "#00ff00";
-
-                // Auto certificate hide
-                cert.style.display = "none";
-
-                // Iframe show
-                if (iframe) {
-                    iframe.src = data.certificateLink;
-                    iframe.style.display = "block";
-                }
-
-            } else {
-
-                // 🔹 OLD SYSTEM (Auto Generated Certificate)
-
-                document.getElementById("name").innerText = data.name || "N/A";
-                document.getElementById("webinar_title").innerText = data.course || "N/A";
-                document.getElementById("certDate").innerText = data.date || "N/A";
-
-                msg.innerText = "✅ Verification Successful!";
-                msg.style.color = "#00ff00";
-
-                cert.style.display = "block";
-
-                if (iframe) iframe.style.display = "none";
-            }
-
-        } else {
-            msg.innerText = "❌ No Record Found!";
-            msg.style.color = "#ff4444";
+        if (!snapshot.exists()) {
+            msg.innerText = "❌ No record found";
+            msg.style.color = "red";
+            return;
         }
 
-    }).catch((error) => {
-        msg.innerText = "⚠️ Error: Connection failed.";
-        console.error(error);
+        const data = snapshot.val();
+        console.log("DATA:", data);
+
+        // 🔥 GOOGLE DRIVE CERTIFICATE
+        if (data.certificateLink && data.certificateLink.trim() !== "") {
+
+            frame.src = data.certificateLink;
+            frame.style.display = "block";
+
+            msg.innerText = "✅ Certificate Loaded";
+            msg.style.color = "lightgreen";
+
+        } else {
+
+            // 🔹 AUTO CERTIFICATE
+            document.getElementById("name").innerText = data.name || "N/A";
+            document.getElementById("webinar_title").innerText = data.course || "N/A";
+            document.getElementById("certDate").innerText = data.date || "N/A";
+
+            cert.style.display = "block";
+
+            msg.innerText = "✅ Verified Successfully";
+            msg.style.color = "lightgreen";
+        }
+
+    })
+    .catch(err => {
+        console.error(err);
+        msg.innerText = "⚠️ Error loading data";
+        msg.style.color = "orange";
     });
 }
