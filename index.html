@@ -1,48 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PTI Verification Portal</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificate Verification</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 </head>
 
 <body>
 
 <div class="hero-section">
+
     <div class="logo">PTI OFFICIAL</div>
-    <div class="logo">MQ PSYCHOLOGICAL HEALING CENTER OFFICIAL</div>
+    <div class="logo">MQ PSYCHOLOGICAL HEALING CENTER</div>
 
     <h1>Certificate Verification</h1>
-    <p>Enter your ID to authenticate your achievement</p>
+    <p>Enter your ID</p>
 
     <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Enter ID">
-        <button onclick="searchCertificate()">Verify</button>
+        <input type="text" id="studentId" placeholder="Enter ID">
+        <button onclick="verify()">Verify</button>
     </div>
 
-    <!-- GENERATED CERTIFICATE -->
-    <div id="certificate" style="display:none;">
-        <h2 id="certName"></h2>
-        <p id="certCourse"></p>
+    <p id="msg"></p>
+
+    <!-- AUTO CERTIFICATE -->
+    <div id="certificate" style="display:none;" class="certificate-wrapper">
+        <h2 id="name"></h2>
+        <p id="webinar_title"></p>
         <p id="certDate"></p>
     </div>
 
     <!-- GOOGLE DRIVE CERTIFICATE -->
-    <iframe id="driveFrame" style="display:none; width:100%; height:600px;"></iframe>
+    <iframe id="driveFrame"></iframe>
 
-    <button onclick="window.print()">Download Certificate</button>
 </div>
-
-<footer>
-    <p>&copy; 2026 Psychology Training Institute. All Rights Reserved.</p>
-</footer>
 
 <script src="script.js"></script>
 
