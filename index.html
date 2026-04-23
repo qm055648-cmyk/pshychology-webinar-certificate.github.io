@@ -8,7 +8,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
     <style>
-        /* Your Original CSS */
         body { font-family: 'Poppins', sans-serif; margin: 0; background: #f4f7f6; text-align: center; color: #333; }
         .hero-section { background: #1a2a6c; color: white; padding: 60px 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
         .logo { font-family: 'Cinzel', serif; font-size: 24px; color: #d4af37; margin-bottom: 10px; font-weight: bold; letter-spacing: 2px; }
@@ -34,11 +33,11 @@
         .sig-name, .date-val { font-weight: 600; font-size: 15px; color: #1a2a6c; margin: 0; }
         .sig-title { font-size: 11px; color: #888; }
         .download-btn-modern { background: #1a2a6c; color: white; padding: 15px 40px; border: none; border-radius: 30px; font-weight: 600; margin-top: 30px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); display: none; }
-        .loading { display: inline-block; width: 20px; height: 20px; border: 3px solid #f3f3f3; border-top: 3px solid #d4af37; border-radius: 50%; animation: spin 1s linear infinite; margin-left: 10px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        footer { background: #222; color: #888; padding: 20px; font-size: 12px; margin-top: 50px; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @media print { .hero-section, footer, .download-btn-modern { display: none; } .cert-card-premium { box-shadow: none; } }
-        .redirect-notice { background: #fff3cd; border: 1px solid #ffc107; padding: 15px; border-radius: 8px; margin-top: 20px; }
+        .spinner { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s ease-in-out infinite; margin-left: 10px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -46,12 +45,12 @@
 <div class="hero-section">
     <div class="logo">PTI OFFICIAL</div>
     <div class="logo">MQ PSYCHOLOGICAL HEALING CENTER OFFICIAL</div>
-    <h1>Smart Certificate Verification</h1>
+    <h1>Certificate Verification Portal</h1>
     <p>Enter your Certificate ID to verify</p>
     
     <div class="search-box">
-        <input type="text" id="studentId" placeholder="Enter Certificate ID">
-        <button onclick="verifyCertificate()">Verify Now</button>
+        <input type="text" id="searchId" placeholder="Enter Certificate ID (A Cell Value)">
+        <button onclick="verifyAndProcess()">Verify Now</button>
     </div>
     
     <div id="msg"></div>
@@ -70,7 +69,7 @@
                     <div class="text-small">This certificate is proudly presented to</div>
                     <div class="recipient-name" id="studentName">_____________</div>
                     <div class="text-small">for successfully completing the webinar</div>
-                    <div class="course-name" id="webinarTitle">_____________</div>
+                    <div class="course-name" id="courseName">_____________</div>
                 </div>
                 
                 <div class="cert-footer-new">
@@ -116,8 +115,8 @@
     
     const database = firebase.database();
 
-    async function verifyCertificate() {
-        const studentId = document.getElementById("studentId").value.trim();
+    async function verifyAndProcess() {
+        const searchId = document.getElementById("searchId").value.trim();
         const msgDiv = document.getElementById("msg");
         const certWrapper = document.getElementById("certificateWrapper");
         const downloadBtn = document.getElementById("downloadBtn");
@@ -127,47 +126,51 @@
         downloadBtn.style.display = "none";
 
         // Validation
-        if (!studentId) {
-            msgDiv.innerHTML = "⚠️ Please enter a Certificate ID!";
+        if (!searchId) {
+            msgDiv.innerHTML = "⚠️ Please enter Certificate ID!";
             msgDiv.style.color = "#ff4444";
             return;
         }
 
-        msgDiv.innerHTML = "🔍 Searching records... <span class='loading'></span>";
+        msgDiv.innerHTML = "🔍 Searching... <span class='spinner'></span>";
         msgDiv.style.color = "#ffffff";
 
         try {
-            // Query Firebase Database
-            const snapshot = await database.ref('certificates/' + studentId).once('value');
+            // Search by A Cell (ID)
+            const snapshot = await database.ref('certificates/' + searchId).once('value');
             
             if (snapshot.exists()) {
                 const record = snapshot.val();
                 
                 console.log("Record Found:", record);
                 
-                // CRITICAL LOGIC: Check if E column has link
-                if (record.link && record.link.trim() !== "" && isValidUrl(record.link)) {
-                    // Has link - Redirect to external link
-                    msgDiv.innerHTML = "🔗 External certificate found! Redirecting...";
+                // CHECK: E Cell has link? (record.E or record.link)
+                const externalLink = record.E || record.link || "";
+                
+                if (externalLink && externalLink.trim() !== "" && isValidUrl(externalLink)) {
+                    // CASE 1: E Cell has link → Direct link open karo
+                    msgDiv.innerHTML = "🔗 External certificate link found! Redirecting...";
                     msgDiv.style.color = "#ffc107";
                     
                     setTimeout(() => {
-                        window.open(record.link, '_blank');
-                        msgDiv.innerHTML = "✅ Redirected to external certificate link";
+                        window.open(externalLink, '_blank');
+                        msgDiv.innerHTML = "✅ Redirected to external certificate";
                         msgDiv.style.color = "#00ff00";
-                    }, 1000);
+                        setTimeout(() => {
+                            msgDiv.innerHTML = "";
+                        }, 2000);
+                    }, 800);
                     
                 } else {
-                    // No link - Generate certificate from A,B,C,D columns
-                    // A = Name, B = Course, C = Date, D = ID (already have)
-                    
-                    const studentName = record.name || record.A || "Student Name";
-                    const courseName = record.course || record.webinar_title || record.B || "Psychology Webinar";
-                    const issueDate = record.date || record.C || new Date().toLocaleDateString('en-PK');
+                    // CASE 2: E Cell has NO link → Certificate generate karo from A,B,C,D
+                    // B = Student Name, C = Course, D = Date
+                    const studentName = record.B || record.name || "Student Name";
+                    const courseName = record.C || record.course || record.webinar_title || "Psychology Webinar";
+                    const issueDate = record.D || record.date || new Date().toLocaleDateString('en-PK');
                     
                     // Update certificate fields
                     document.getElementById("studentName").innerText = studentName;
-                    document.getElementById("webinarTitle").innerText = courseName;
+                    document.getElementById("courseName").innerText = courseName;
                     document.getElementById("issueDate").innerText = issueDate;
                     
                     // Show certificate
@@ -177,22 +180,20 @@
                     msgDiv.innerHTML = "✅ Certificate Generated Successfully!";
                     msgDiv.style.color = "#00ff00";
                     
-                    // Auto-hide success message
+                    // Auto-hide success message after 3 seconds
                     setTimeout(() => {
-                        if (msgDiv.innerHTML.includes("Successfully")) {
+                        if (msgDiv.innerHTML === "✅ Certificate Generated Successfully!") {
                             msgDiv.style.opacity = "0";
                             setTimeout(() => {
-                                if (msgDiv.innerHTML.includes("Successfully")) {
-                                    msgDiv.innerHTML = "";
-                                    msgDiv.style.opacity = "1";
-                                }
+                                msgDiv.innerHTML = "";
+                                msgDiv.style.opacity = "1";
                             }, 500);
                         }
                     }, 3000);
                 }
                 
             } else {
-                msgDiv.innerHTML = "❌ No record found for ID: " + studentId;
+                msgDiv.innerHTML = "❌ No record found for ID: " + searchId;
                 msgDiv.style.color = "#ff4444";
                 certWrapper.style.display = "none";
                 downloadBtn.style.display = "none";
@@ -200,14 +201,14 @@
             
         } catch (error) {
             console.error("Firebase Error:", error);
-            msgDiv.innerHTML = "⚠️ Database Error: " + (error.message || "Connection failed. Please try again.");
+            msgDiv.innerHTML = "⚠️ Error: " + (error.message || "Connection failed!");
             msgDiv.style.color = "#ff4444";
             certWrapper.style.display = "none";
             downloadBtn.style.display = "none";
         }
     }
 
-    // Helper function to validate URL
+    // URL validation function
     function isValidUrl(string) {
         try {
             const url = new URL(string);
@@ -218,16 +219,25 @@
     }
 
     // Enter key support
-    document.getElementById("studentId").addEventListener("keypress", function(event) {
+    document.getElementById("searchId").addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
-            verifyCertificate();
+            verifyAndProcess();
         }
     });
     
-    // Check Firebase connection on load
+    // Check Firebase connection
     window.addEventListener('load', function() {
-        console.log("✅ Smart Certificate Portal Loaded");
-        console.log("📡 Firebase Status:", firebase.apps.length ? "Connected" : "Not Connected");
+        console.log("✅ Smart Portal Loaded");
+        console.log("📡 Firebase:", firebase.apps.length ? "Connected" : "Not Connected");
+        
+        // Test database connection
+        database.ref('.info/connected').on('value', (snap) => {
+            if (snap.val()) {
+                console.log("✅ Database Connected");
+            } else {
+                console.log("❌ Database Disconnected");
+            }
+        });
     });
 </script>
 
