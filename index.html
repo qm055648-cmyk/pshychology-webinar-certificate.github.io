@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Certificate Verification</title>
+<title>Certificate Verification Portal</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -14,33 +14,48 @@
 
 <body>
 
+<!-- HEADER -->
 <div class="hero-section">
 
-    <div class="logo">PTI OFFICIAL</div>
-    <div class="logo">MQ PSYCHOLOGICAL HEALING CENTER</div>
+    <div class="logo">MQ CERTIFICATION PORTAL</div>
 
     <h1>Certificate Verification</h1>
-    <p>Enter your ID</p>
+    <p>Enter your Certificate ID</p>
 
+    <!-- SEARCH -->
     <div class="search-box">
-        <input type="text" id="studentId" placeholder="Enter ID">
+        <input type="text" id="studentId" placeholder="e.g. psy-2026-001">
         <button onclick="verify()">Verify</button>
     </div>
 
     <p id="msg"></p>
 
-    <!-- AUTO CERTIFICATE -->
-    <div id="certificate" style="display:none;" class="certificate-wrapper">
-        <h2 id="name"></h2>
-        <p id="webinar_title"></p>
-        <p id="certDate"></p>
-    </div>
+</div>
 
-    <!-- GOOGLE DRIVE CERTIFICATE -->
-    <iframe id="driveFrame"></iframe>
+<!-- AUTO CERTIFICATE -->
+<div id="certificate" class="certificate-wrapper" style="display:none;">
+
+    <div class="cert-card">
+
+        <h2 class="title">Certificate of Completion</h2>
+
+        <p class="text">This is to certify that</p>
+        <h1 id="name" class="name"></h1>
+
+        <p class="text">has successfully completed</p>
+        <h3 id="webinar_title" class="course"></h3>
+
+        <p class="text">on</p>
+        <p id="certDate" class="date"></p>
+
+    </div>
 
 </div>
 
+<!-- GOOGLE DRIVE CERTIFICATE -->
+<iframe id="driveFrame"></iframe>
+
+<!-- SCRIPT -->
 <script src="script.js"></script>
 
 </body>
