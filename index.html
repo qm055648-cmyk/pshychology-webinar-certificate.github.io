@@ -3,40 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PTI Verification Portal</title>
+    <title>PTI Verification Portal | Certificate Verification</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <style>
+        /* Your Original CSS - Exactly as you provided */
+        body { font-family: 'Poppins', sans-serif; margin: 0; background: #f4f7f6; text-align: center; color: #333; }
+
+        /* Hero Section */
+        .hero-section { background: #1a2a6c; color: white; padding: 60px 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .logo { font-family: 'Cinzel', serif; font-size: 24px; color: #d4af37; margin-bottom: 10px; font-weight: bold; letter-spacing: 2px; }
+        .search-box { margin-top: 25px; display: flex; justify-content: center; gap: 10px; }
+        input { padding: 12px 20px; width: 280px; border-radius: 5px; border: none; font-size: 16px; outline: none; }
+        button { padding: 12px 25px; background: #d4af37; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        button:hover { background: #b21f1f; }
+        #msg { margin-top: 15px; font-weight: 600; }
+
+        /* Certificate Luxury Design */
+        .certificate-wrapper { margin: 50px auto; max-width: 850px; padding: 20px; animation: fadeIn 0.8s ease; display: none; }
+        .cert-card-premium { background: #fffcf5; padding: 15px; border: 1px solid #e0e0e0; box-shadow: 0 30px 60px rgba(0,0,0,0.15); }
+        .border-pattern { border: 10px double #1a2a6c; padding: 35px; }
+        .cert-inner-content { border: 1px solid #d4af37; padding: 40px; text-align: center; background: white; }
+
+        .institute-title { font-family: 'Cinzel', serif; font-size: 18px; color: #1a2a6c; letter-spacing: 3px; margin: 0; }
+        .gold-line-thin { height: 1.5px; background: #d4af37; width: 120px; margin: 10px auto; }
+        .cert-type-label { font-family: 'Cinzel', serif; font-size: 28px; color: #1a2a6c; margin-top: 15px; letter-spacing: 1px; }
+
+        .cert-body-new { margin: 30px 0; }
+        .text-small { font-size: 14px; color: #666; font-style: italic; }
+        .recipient-name { font-family: 'Cinzel', serif; font-size: 42px; color: #b21f1f; margin: 10px 0; border-bottom: 1px solid #eee; display: inline-block; padding-bottom: 5px; }
+        .course-name { font-size: 24px; color: #333; font-weight: 600; margin-top: 5px; }
+
+        .cert-footer-new { display: flex; justify-content: space-between; margin-top: 50px; padding: 0 20px; }
+        .footer-item { width: 220px; }
+        .sig-line { height: 1px; background: #333; margin-bottom: 8px; }
+        .sig-name, .date-val { font-weight: 600; font-size: 15px; color: #1a2a6c; margin: 0; }
+        .sig-title { font-size: 11px; color: #888; }
+
+        .download-btn-modern { background: #1a2a6c; color: white; padding: 15px 40px; border: none; border-radius: 30px; font-weight: 600; margin-top: 30px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); display: none; }
+
+        footer { background: #222; color: #888; padding: 20px; font-size: 12px; margin-top: 50px; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @media print { .hero-section, footer, .download-btn-modern { display: none; } .cert-card-premium { box-shadow: none; } }
+    </style>
 </head>
 <body>
 
-    <div class="hero-section">
-        <div class="logo">PTI OFFICIAL</div>
-        <div class="logo">MQ PSYCHOLOGICAL HEALING CENTER OFFICIAL</div>
-        <h1>Certificate Verification</h1>
-        <p>Enter your ID to authenticate your achievement</p>
-        
-        <div class="search-box">
-            <input type="text" id="studentId" placeholder="Enter Student ID / Certificate Number" class="search-input">
-            <button onclick="verify()" class="verify-btn">Verify Certificate</button>
-        </div>
-        
-        <div id="msg" class="message"></div>
-        
-        <!-- Certificate Display Area -->
-        <div id="certificate" style="display: none;" class="certificate-container">
-            <div class="certificate-card">
-                <div class="certificate-header">
-                    <h2>CERTIFICATE OF ACHIEVEMENT</h2>
-                    <p>This certificate is proudly presented to</p>
+<div class="hero-section">
+    <div class="logo">PTI OFFICIAL</div>
+    <div class="logo">MQ PSYCHOLOGICAL HEALING CENTER OFFICIAL</div>
+    <h1>Certificate Verification</h1>
+    <p>Enter your ID to authenticate your achievement</p>
+    
+    <div class="search-box">
+        <input type="text" id="studentId" placeholder="Enter Student ID / Certificate Number">
+        <button onclick="verifyCertificate()">Verify Certificate</button>
+    </div>
+    
+    <div id="msg"></div>
+</div>
+
+<!-- Certificate Section - Your Original Design -->
+<div id="certificateWrapper" class="certificate-wrapper">
+    <div class="cert-card-premium">
+        <div class="border-pattern">
+            <div class="cert-inner-content">
+                <div class="institute-title">PSYCHOLOGY TRAINING INSTITUTE</div>
+                <div class="gold-line-thin"></div>
+                <div class="cert-type-label">CERTIFICATE OF ACHIEVEMENT</div>
+                
+                <div class="cert-body-new">
+                    <div class="text-small">This certificate is proudly presented to</div>
+                    <div class="recipient-name" id="studentName">_____________</div>
+                    <div class="text-small">for successfully completing the webinar</div>
+                    <div class="course-name" id="webinarTitle">_____________</div>
                 </div>
-                <div class="certificate-body">
-                    <h1 id="name" class="student-name">____________</h1>
-                    <p>for successfully completing the webinar</p>
-                    <h3 id="webinar_title" class="webinar-title">____________</h3>
-                </div>
-                <div class="certificate-footer">
+                
+                <div class="cert-footer-new">
                     <div class="footer-item">
                         <div class="sig-line"></div>
                         <p class="sig-name">Major Dr Muhammad Usama Durani</p>
@@ -45,20 +90,129 @@
                     </div>
                     <div class="footer-item">
                         <div class="sig-line"></div>
-                        <p id="certDate" class="date-val">--/--/--</p>
+                        <p id="issueDate" class="date-val">--/--/--</p>
                         <p class="sig-title">Issue Date</p>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <button class="download-btn-modern" onclick="window.print()" style="display: none;" id="downloadBtn">Download Certificate</button>
     </div>
+</div>
 
-    <footer>
-        <p>&copy; 2026 Psychology Training Institute. All Rights Reserved.</p>
-    </footer>
+<button class="download-btn-modern" id="downloadBtn" onclick="window.print()">📥 Download Certificate</button>
 
-    <script src="script.js"></script>
+<footer>
+    <p>&copy; 2026 Psychology Training Institute. All Rights Reserved.</p>
+</footer>
+
+<script>
+    // Firebase Configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyC95-aIknA2rwVl8_RHJ1Kgn433LAlIqrI",
+        authDomain: "certificate-portal-389d9.firebaseapp.com",
+        databaseURL: "https://certificate-portal-389d9-default-rtdb.firebaseio.com",
+        projectId: "certificate-portal-389d9",
+        storageBucket: "certificate-portal-389d9.firebasestorage.app",
+        messagingSenderId: "663113680380",
+        appId: "1:663113680380:web:d1123e33be4d2fdb8c9e79"
+    };
+
+    // Initialize Firebase
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+    
+    const database = firebase.database();
+
+    function verifyCertificate() {
+        const studentId = document.getElementById("studentId").value.trim();
+        const msgDiv = document.getElementById("msg");
+        const certWrapper = document.getElementById("certificateWrapper");
+        const downloadBtn = document.getElementById("downloadBtn");
+
+        // Hide certificate initially
+        certWrapper.style.display = "none";
+        downloadBtn.style.display = "none";
+
+        // Validation
+        if (!studentId) {
+            msgDiv.innerHTML = "⚠️ Please enter a Student ID!";
+            msgDiv.style.color = "#ff4444";
+            return;
+        }
+
+        msgDiv.innerHTML = "🔍 Searching certificate in database...";
+        msgDiv.style.color = "#ffffff";
+
+        // Query Firebase Database
+        database.ref('students/' + studentId).once('value')
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    const studentData = snapshot.val();
+                    
+                    console.log("Certificate Found:", studentData);
+                    
+                    // Update certificate with student data
+                    document.getElementById("studentName").innerText = studentData.name || "Student Name";
+                    document.getElementById("webinarTitle").innerText = studentData.course || studentData.webinar_title || "Psychology Webinar";
+                    document.getElementById("issueDate").innerText = studentData.date || new Date().toLocaleDateString('en-PK');
+                    
+                    // Show certificate with animation
+                    certWrapper.style.display = "block";
+                    downloadBtn.style.display = "inline-block";
+                    
+                    msgDiv.innerHTML = "✅ Certificate Verified Successfully!";
+                    msgDiv.style.color = "#00ff00";
+                    
+                    // Auto-hide success message
+                    setTimeout(() => {
+                        if (msgDiv.innerHTML.includes("Successfully")) {
+                            msgDiv.style.opacity = "0";
+                            setTimeout(() => {
+                                msgDiv.innerHTML = "";
+                                msgDiv.style.opacity = "1";
+                            }, 500);
+                        }
+                    }, 3000);
+                    
+                } else {
+                    msgDiv.innerHTML = "❌ No certificate found for ID: " + studentId;
+                    msgDiv.style.color = "#ff4444";
+                    certWrapper.style.display = "none";
+                    downloadBtn.style.display = "none";
+                }
+            })
+            .catch((error) => {
+                console.error("Firebase Error:", error);
+                msgDiv.innerHTML = "⚠️ Database Error: " + (error.message || "Connection failed. Please try again.");
+                msgDiv.style.color = "#ff4444";
+                certWrapper.style.display = "none";
+                downloadBtn.style.display = "none";
+            });
+    }
+
+    // Enter key support for verification
+    document.getElementById("studentId").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            verifyCertificate();
+        }
+    });
+    
+    // Check Firebase connection on load
+    window.addEventListener('load', function() {
+        console.log("✅ Portal Loaded Successfully");
+        console.log("📡 Firebase Status:", firebase.apps.length ? "Connected" : "Not Connected");
+        
+        // Test database connection
+        database.ref('.info/connected').on('value', (snap) => {
+            if (snap.val() === true) {
+                console.log("✅ Firebase Database Connected");
+            } else {
+                console.log("❌ Firebase Database Disconnected");
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
