@@ -12,7 +12,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// 🔍 VERIFY FUNCTION
 function verify() {
 
     const id = document.getElementById("studentId").value.trim();
@@ -21,57 +20,48 @@ function verify() {
     const frame = document.getElementById("driveFrame");
 
     if (!id) {
-        msg.innerText = "⚠️ Please enter Certificate ID";
-        msg.style.color = "yellow";
+        msg.innerText = "Enter ID";
         return;
     }
 
-    msg.innerText = "🔍 Searching...";
-    msg.style.color = "white";
+    msg.innerText = "Searching...";
 
     cert.style.display = "none";
     frame.style.display = "none";
 
-    // 🔥 SAME ID FORMAT (psy-2026-001)
     db.ref("students/" + id).once("value")
     .then(snapshot => {
 
         if (!snapshot.exists()) {
-            msg.innerText = "❌ Invalid Certificate ID";
-            msg.style.color = "red";
+            msg.innerText = "No Record Found";
             return;
         }
 
         const data = snapshot.val();
-        console.log("DATA:", data);
 
-        // ✅ CHECK LINK
-        if (data.certificateLink && data.certificateLink.trim() !== "") {
+        // 🔥 DRIVE CERTIFICATE
+        if (data.certificateLink && data.certificateLink !== "") {
 
-            // 👉 GOOGLE DRIVE CERTIFICATE
             frame.src = data.certificateLink;
             frame.style.display = "block";
 
-            msg.innerText = "✅ Certificate Loaded";
-            msg.style.color = "lightgreen";
+            msg.innerText = "Certificate Loaded";
 
         } else {
 
-            // 👉 AUTO GENERATED CERTIFICATE (OLD SYSTEM)
-            document.getElementById("name").innerText = data.name || "N/A";
-            document.getElementById("webinar_title").innerText = data.course || "N/A";
-            document.getElementById("certDate").innerText = data.date || "N/A";
+            // AUTO CERTIFICATE
+            document.getElementById("name").innerText = data.name;
+            document.getElementById("webinar_title").innerText = data.course;
+            document.getElementById("certDate").innerText = data.date;
 
             cert.style.display = "block";
 
-            msg.innerText = "✅ Verified Successfully";
-            msg.style.color = "lightgreen";
+            msg.innerText = "Verified Successfully";
         }
 
     })
     .catch(err => {
-        console.error(err);
-        msg.innerText = "⚠️ Error loading data";
-        msg.style.color = "orange";
+        console.log(err);
+        msg.innerText = "Error";
     });
 }
