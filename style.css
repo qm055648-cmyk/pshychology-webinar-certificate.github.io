@@ -1,253 +1,103 @@
 body {
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-  background: #f4f7f6;
-  text-align: center;
-  color: #333;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #f4f7f6;
+    text-align: center;
 }
 
-/* Hero Section */
+/* HEADER */
 .hero-section {
-  background: #1a2a6c;
-  color: white;
-  padding: 60px 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    background: linear-gradient(135deg, #1a2a6c, #b21f1f);
+    color: white;
+    padding: 60px 20px;
 }
 
 .logo {
-  font-family: 'Cinzel', serif;
-  font-size: 24px;
-  color: #d4af37;
-  margin-bottom: 10px;
-  font-weight: bold;
-  letter-spacing: 2px;
+    font-family: 'Cinzel', serif;
+    font-size: 22px;
+    color: gold;
+    margin-bottom: 10px;
 }
 
 .search-box {
-  margin-top: 25px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
+    margin-top: 20px;
 }
 
 input {
-  padding: 12px 20px;
-  width: 280px;
-  border-radius: 5px;
-  border: none;
-  font-size: 16px;
-  outline: none;
+    padding: 12px;
+    width: 280px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
 }
 
 button {
-  padding: 12px 25px;
-  background: #d4af37;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
+    padding: 12px 20px;
+    background: gold;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
 }
 
 button:hover {
-  background: #b21f1f;
+    background: #ffcc00;
 }
 
 #msg {
-  margin-top: 15px;
-  font-weight: 600;
+    margin-top: 10px;
+    font-weight: bold;
 }
 
-/* Certificate Wrapper */
+/* CERTIFICATE DESIGN */
 .certificate-wrapper {
-  margin: 50px auto;
-  max-width: 850px;
-  padding: 20px;
-  animation: fadeIn 0.8s ease;
+    margin: 40px auto;
+    max-width: 800px;
 }
 
-/* Premium Certificate Card */
-.cert-card-premium {
-  background: #fffcf5;
-  padding: 15px;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+.cert-card {
+    background: white;
+    padding: 40px;
+    border: 10px double #1a2a6c;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-.border-pattern {
-  border: 10px double #1a2a6c;
-  padding: 35px;
+.title {
+    font-family: 'Cinzel', serif;
+    color: #1a2a6c;
 }
 
-.cert-inner-content {
-  border: 1px solid #d4af37;
-  padding: 40px;
-  text-align: center;
-  background: white;
+.name {
+    font-size: 40px;
+    color: #b21f1f;
+    font-family: 'Cinzel', serif;
 }
 
-/* Titles */
-.institute-title {
-  font-family: 'Cinzel', serif;
-  font-size: 18px;
-  color: #1a2a6c;
-  letter-spacing: 3px;
-  margin: 0;
+.course {
+    font-size: 22px;
 }
 
-.gold-line-thin {
-  height: 1.5px;
-  background: #d4af37;
-  width: 120px;
-  margin: 10px auto;
+.date {
+    font-weight: bold;
 }
 
-.cert-type-label {
-  font-family: 'Cinzel', serif;
-  font-size: 28px;
-  color: #1a2a6c;
-  margin-top: 15px;
-}
-
-/* Body */
-.cert-body-new {
-  margin: 30px 0;
-}
-
-.text-small {
-  font-size: 14px;
-  color: #666;
-  font-style: italic;
-}
-
-.recipient-name {
-  font-family: 'Cinzel', serif;
-  font-size: 42px;
-  color: #b21f1f;
-  margin: 10px 0;
-  border-bottom: 1px solid #eee;
-  display: inline-block;
-  padding-bottom: 5px;
-}
-
-.course-name {
-  font-size: 24px;
-  color: #333;
-  font-weight: 600;
-  margin-top: 5px;
-}
-
-/* Footer */
-.cert-footer-new {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 50px;
-  padding: 0 20px;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.footer-item {
-  width: 220px;
-}
-
-.sig-line {
-  height: 1px;
-  background: #333;
-  margin-bottom: 8px;
-}
-
-.sig-name,
-.date-val {
-  font-weight: 600;
-  font-size: 15px;
-  color: #1a2a6c;
-  margin: 0;
-}
-
-.sig-title {
-  font-size: 11px;
-  color: #888;
-}
-
-/* Download Button */
-.download-btn-modern {
-  background: #1a2a6c;
-  color: white;
-  padding: 15px 40px;
-  border: none;
-  border-radius: 30px;
-  font-weight: 600;
-  margin-top: 30px;
-  cursor: pointer;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-/* 🔥 Google Drive Certificate Frame */
+/* GOOGLE DRIVE FRAME */
 #driveFrame {
-  margin: 40px auto;
-  max-width: 900px;
-  width: 100%;
-  height: 600px;
-  border: 3px solid #d4af37;
-  border-radius: 10px;
-  display: none;
-  background: white;
-}
-
-/* Footer */
-footer {
-  background: #222;
-  color: #888;
-  padding: 20px;
-  font-size: 12px;
-  margin-top: 50px;
-}
-
-/* Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* 📱 Mobile Responsive */
-@media (max-width: 768px) {
-  .recipient-name {
-    font-size: 28px;
-  }
-
-  .course-name {
-    font-size: 18px;
-  }
-
-  #driveFrame {
-    height: 400px;
-  }
-}
-
-/* 🖨️ Print Mode */
-@media print {
-  .hero-section,
-  footer,
-  .download-btn-modern,
-  #msg {
+    width: 90%;
+    height: 600px;
+    margin: 40px auto;
     display: none;
-  }
+    border: 3px solid gold;
+    border-radius: 10px;
+}
 
-  .cert-card-premium {
-    box-shadow: none;
-  }
+/* MOBILE */
+@media (max-width: 768px) {
+    input {
+        width: 80%;
+    }
 
-  #driveFrame {
-    border: none;
-    height: 100%;
-  }
+    .name {
+        font-size: 28px;
+    }
 }
