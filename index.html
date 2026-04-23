@@ -1,74 +1,46 @@
+@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PTI Certificate Verification</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PTI Verification Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 </head>
-
 <body>
 
-<div class="hero-section">
-
-    <div class="logo">PTI OFFICIAL</div>
-    <div class="logo">MQ PSYCHOLOGICAL CENTER</div>
-
-    <h1>Certificate Verification</h1>
-
-    <div class="search-box">
-        <input type="text" id="studentId" placeholder="Enter Certificate ID">
-        <button onclick="verify()">Search</button>
-    </div>
-
-    <p id="msg"></p>
-
-</div>
-
-<!-- AUTO CERTIFICATE -->
-<div id="certificate" class="certificate-wrapper" style="display:none;">
-
-    <div class="cert-card-premium">
-
-        <div class="border-pattern">
-            <div class="cert-inner-content">
-
-                <h2 class="institute-title">Psychology Training Institute</h2>
-                <div class="gold-line-thin"></div>
-
-                <h1 class="cert-type-label">Certificate of Completion</h1>
-
-                <div class="cert-body-new">
-                    <p class="text-small">This is to certify that</p>
-                    <h1 id="name" class="recipient-name"></h1>
-
-                    <p class="text-small">has successfully completed</p>
-                    <h2 id="webinar_title" class="course-name"></h2>
-
-                    <p class="text-small">on</p>
-                    <p id="certDate"></p>
+    <div class="hero-section">
+        <div class="logo">PTI OFFICIAL</div>
+        <div class="logo">MQ PSYCHOLOGICAL HEALING CENTER OFFICIAL</div>
+        <h1>Certificate Verification</h1>
+        <p>Enter your ID to authenticate your achievement</p>
+        <div class="search-box">
+@@ -43,24 +43,24 @@
+                        <div class="footer-item">
+                            <div class="sig-line"></div>
+                            <p class="sig-name">Major Muhammad Usama Durani</p>
+                            <p class="sig-title">Instructor | Psychiatrist</p>
+                            <p class="sig-title">Instructor | GOLD MEDALIST Psychiatrist</p>
+                        </div>
+                        <div class="footer-item">
+                            <div class="sig-line"></div>
+                            <p id="certDate" class="date-val">--/--/--</p>
+                            <p class="sig-title">Issue Date</p>
+                        </div>
+                    </div>
                 </div>
-
             </div>
         </div>
-
+        <button class="download-btn-modern" onclick="window.print()">Download Certificate</button>
     </div>
 
-</div>
+    <footer>
+        <p>&copy; 2026 Psychology Training Institute. All Rights Reserved.</p>
+    </footer>
 
-<!-- GOOGLE DRIVE CERTIFICATE -->
-<iframe id="driveFrame"></iframe>
-
-<footer>
-    <p>© 2026 Psychology Training Institute</p>
-</footer>
-
-<script src="script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
